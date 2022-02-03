@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\LogRecord;
+
 class AppController extends Controller
 {
     public function index (): string

@@ -6,7 +6,8 @@
             "App\\": "app/"
         },
         "files": [
-            "config/functions.php"
+            "config/functions.php",
+            "config/database.php"
         ]
     },
     "authors": [

@@ -3,14 +3,15 @@
 
 namespace App\Controllers\Api;
 
-
 use App\Requests\GetAccessTokenRequest;
 use App\UseCases\AccessTokens\GetAccessToken2Action;
 use App\UseCases\AccessTokens\GetAccessToken3Action;
 use App\UseCases\AccessTokens\GetAccessTokenIdAction;
 use App\UseCases\AccessTokens\SortAccessToken3Action;
 use App\UseCases\BusinessAccounts\GetBusinessAccountAction;
+use App\UseCases\Logs\SaveLogAction;
 use App\UseCases\Posts\GetInstagramPostsAction;
+use DB;
 use JsonException;
 
 class AccessTokenController
@@ -99,20 +100,13 @@ class AccessTokenController
             return json( $response, 400 );
         }
 
-//            $log_table = new LogTable();
-//            $log_table->fill(
-//                [
-//                    'app_id'             => $request->app_id,
-//                    'app_secret'         => $request->app_secret,
-//                    'management_id'      => $this->instagram_management_id,
-//                    'access_token_1'     => $request->get( 'access_token_1' ),
-//                    'access_token_2'     => $this->access_token2,
-//                    'access_token_3'     => $this->access_token3 ?? '',
-//                    'facebook_page_name' => $request->page_name,
-//                    'business_account'   => $this->instagram_business_account,
-//                ]
-//            );
-//            $log_table->save();
+        try {
+            DB::beginTransaction();
+            (new SaveLogAction)($this->request, $this->instagram_management_id, $this->access_token2, $this->access_token3, $this->instagram_business_account);
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+        }
 
         try {
             $posts = new GetInstagramPostsAction( $this->instagram_business_account, $this->access_token3 );
