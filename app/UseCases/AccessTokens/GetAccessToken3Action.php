@@ -9,15 +9,15 @@ class GetAccessToken3Action
 {
     protected string $url_for_access_token3;
 
-    public function __invoke ( string $base_url, int $instagram_management_id )
+    public function __invoke ( string $access_token2, string $base_url, int $instagram_management_id )
     {
         $this->url_for_access_token3 = $base_url
-            . $instagram_management_id
+            . '/'. $instagram_management_id
             . '/accounts';
 
         $query = [
-            'access_token' => $this->access_token2,
-            'limit'        => '-1'
+            'access_token' => $access_token2,
+            'limit'        => '1000'
         ];
 
         try {

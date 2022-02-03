@@ -12,7 +12,7 @@ class SortAccessToken3Action
         foreach ( $response_array as $array ) {
             foreach ( $array as $data ) {
                 if ( isset( $data[ 'name' ] ) && $data[ 'name' ] === $page_name ) {
-                    $this->access_token3_array[] = [
+                    $this->access_token3_array = [
                         'access_token'     => $data[ 'access_token' ],
                         'instagram_page_id' => $data[ 'id' ]
                     ];

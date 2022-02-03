@@ -10,11 +10,7 @@ use App\UseCases\AccessTokens\GetAccessToken3Action;
 use App\UseCases\AccessTokens\GetAccessTokenIdAction;
 use App\UseCases\AccessTokens\SortAccessToken3Action;
 use App\UseCases\BusinessAccounts\GetBusinessAccountAction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use JsonException;
-use Illuminate\Http\Response;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class AccessTokenController
 {
@@ -23,7 +19,6 @@ class AccessTokenController
     protected string $base_url;
     protected string $url_for_access_token2;
     protected string $access_token_id_url;
-    protected string $url_for_access_token3;
     protected string $facebook_page_name;
     protected array  $request;
     protected int    $instagram_management_id;
@@ -41,7 +36,11 @@ class AccessTokenController
 
     public function store ()
     {
-        $this->request = ( new GetAccessTokenRequest( $_REQUEST ) )->validateGetAccessTokenRequest();
+        $access_token_request = ( new GetAccessTokenRequest( $_REQUEST ) );
+
+        if ( $access_token_request->validateAccessTokenRequest() ) {
+            $this->request = $access_token_request->getRequest();
+        }
 
         // アクセストークン2の取得
         try {
@@ -76,20 +75,12 @@ class AccessTokenController
 
         // Access Token3とInstagram Page IDの取得
         try {
-            // ToDo: ここはFormRequestで対処する
-            if ( !isset( $this->request[ 'page_name' ] ) ) {
-                $response = [
-                    'success' => false,
-                    'message' => 'リンクされているFacebookページがありません。'
-                ];
-                return json( $response, 400 );
-            }
-
-            $access_token3_response   = ( new GetAccessToken3Action )( $this->base_url, $this->instagram_management_id );
-            $this->facebook_page_name = $this->request[ 'page_name' ];
+            $this->facebook_page_name = $this->request[ 'facebook_page_name' ];
+            $access_token3_response   = ( new GetAccessToken3Action )( $this->access_token2, $this->base_url, $this->instagram_management_id );
 
             // Facebookページ名を用いて、アクセストークン3を取得
-            $access_token3_array     = ( new SortAccessToken3Action )( $this->facebook_page_name, $access_token3_response );
+            $access_token3_array = ( new SortAccessToken3Action )( $this->facebook_page_name, $access_token3_response );
+
             $this->instagram_page_id = $access_token3_array[ 'instagram_page_id' ];
             $this->access_token3     = $access_token3_array[ 'access_token' ];
 
@@ -97,7 +88,6 @@ class AccessTokenController
             print $e->getMessage();
         }
 
-        // Instagram Business Account
         try {
             $this->instagram_business_account = ( new GetBusinessAccountAction )( $this->base_url, $this->instagram_page_id, $this->access_token3 );
         } catch ( \RuntimeException $e ) {
