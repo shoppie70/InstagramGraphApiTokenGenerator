@@ -13,6 +13,7 @@ use App\UseCases\Logs\SaveLogAction;
 use App\UseCases\Posts\GetInstagramPostsAction;
 use DB;
 use JsonException;
+use Throwable;
 
 class AccessTokenController
 {
@@ -106,6 +107,11 @@ class AccessTokenController
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
+            $response = [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+            return json( $response, 400 );
         }
 
         try {

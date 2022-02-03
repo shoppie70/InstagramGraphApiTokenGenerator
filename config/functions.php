@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
-
 if ( !function_exists( 'base_uri' ) ) {
     function base_uri (): string
     {
@@ -16,7 +14,7 @@ if ( !function_exists( 'asset' ) ) {
      * @param string $path
      * @return string
      */
-    function asset ( string $path )
+    function asset ( string $path ): string
     {
         $file_path = '/public' . $path;
 
@@ -34,23 +32,22 @@ if ( !function_exists( 'asset' ) ) {
 if ( !function_exists( 'json' ) ) {
     function json ( array $array, int $status ): bool|string
     {
-        if( $status === 400 ) {
-            header('HTTP/1.1 400 Bad Request');
-        }
-        else {
-            header("HTTP/1.1 200 OK");
+        if ( $status === 400 ) {
+            header( 'HTTP/1.1 400 Bad Request' );
+        } else {
+            header( "HTTP/1.1 200 OK" );
         }
 
-        header("Content-Type: application/json; charset=utf-8");
-        return json_encode( $array ,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+        header( "Content-Type: application/json; charset=utf-8" );
+        return json_encode( $array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
     }
 }
 
 if ( !function_exists( 'dd' ) ) {
-    #[NoReturn] function dd ( $data )
+    function dd ( $data )
     {
         echo '<pre>';
-        var_dump($data);
+        var_dump( $data );
         echo '</pre>';
 
         exit;
@@ -60,9 +57,9 @@ if ( !function_exists( 'dd' ) ) {
 if ( !function_exists( 'config' ) ) {
     function config ( string $env_name )
     {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ . '/..' );
         $dotenv->load();
 
-        return $_ENV[$env_name];
+        return $_ENV[ $env_name ];
     }
 }

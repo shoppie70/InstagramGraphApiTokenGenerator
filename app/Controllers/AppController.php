@@ -15,13 +15,13 @@ class AppController extends Controller
 
         $btns = [
             [
-                'btn_id' => 'accessTokenContent',
-                'display_name' => 'Access Token3',
+                'btn_id'          => 'accessTokenContent',
+                'display_name'    => 'Access Token3',
                 'display_name_ja' => 'アクセストークン3',
             ],
             [
-                'btn_id' => 'businessAccountId',
-                'display_name' => 'Instagram Business Account ID',
+                'btn_id'          => 'businessAccountId',
+                'display_name'    => 'Instagram Business Account ID',
                 'display_name_ja' => 'Instagram Business AccountのID',
             ]
         ];

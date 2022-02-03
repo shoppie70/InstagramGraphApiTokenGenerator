@@ -2,30 +2,28 @@
 
 namespace App\UseCases\Posts;
 
-use JsonException;
-
 class GetInstagramPostsAction
 {
-    protected array  $posts           = [];
-    protected string $version         = 'v11.0';
-    protected int    $instaMediaLimit = 12;
-    protected int    $instaBusinessAccount;
-    protected string $instaAccessToken;
+    protected array  $posts                 = [];
+    protected string $version               = 'v11.0';
+    protected int    $instagram_media_limit = 12;
+    protected int    $instagram_business_account;
+    protected string $instagram_access_token;
     protected string $baseUrl;
 
     public function __construct ( int $businessAccount, string $accessToken )
     {
-        $this->instaBusinessAccount = $businessAccount;
-        $this->instaAccessToken     = $accessToken;
+        $this->instagram_business_account = $businessAccount;
+        $this->instagram_access_token     = $accessToken;
 
         $query = [
-            'fields'       => "name,media.limit({$this->instaMediaLimit}){media_url,thumbnail_url}",
-            'access_token' => $this->instaAccessToken,
+            'fields'       => "name,media.limit({$this->instagram_media_limit}){media_url,thumbnail_url}",
+            'access_token' => $this->instagram_access_token,
         ];
 
         $this->baseUrl = 'https://graph.facebook.com/'
             . $this->version . '/'
-            . $this->instaBusinessAccount
+            . $this->instagram_business_account
             . '?' . http_build_query( $query );
     }
 
