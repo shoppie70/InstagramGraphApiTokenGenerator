@@ -78,7 +78,6 @@
                 </div>
             </div>
         </section>
-
     </div>
 
     <div class="hidden"><a class="js-modal-open" href="" data-target="tokenModal">Open Modal</a></div>

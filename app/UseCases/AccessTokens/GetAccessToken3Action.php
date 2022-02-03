@@ -2,24 +2,38 @@
 
 namespace App\UseCases\AccessTokens;
 
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+
 class GetAccessToken3Action
 {
-    protected array $access_token3_array = [];
+    protected string $url_for_access_token3;
 
-    public function __invoke ( $page_name, $response_array ): array
+    public function __invoke ( string $base_url, int $instagram_management_id )
     {
-        // Facebookページ名を用いて、アクセストークン3を取得
-        foreach ( $response_array as $array ) {
-            foreach ( $array as $data ) {
-                if ( isset( $data[ 'name' ] ) && $data[ 'name' ] === $page_name ) {
-                    $this->access_token3_array[] = [
-                        'access_token'     => $data[ 'access_token' ],
-                        'instagram_page_id' => $data[ 'id' ]
-                    ];
-                }
-            }
+        $this->url_for_access_token3 = $base_url
+            . $instagram_management_id
+            . '/accounts';
+
+        $query = [
+            'access_token' => $this->access_token2,
+            'limit'        => '-1'
+        ];
+
+        try {
+            $client                      = new Client();
+            $access_token3_response_json = $client->request( 'GET', $this->url_for_access_token3, [ 'query' => $query ] );
+
+            $result = json_decode( $access_token3_response_json->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR );
+        } catch ( JsonException $e ) {
+            return $e->getMessage();
         }
 
-        return $this->access_token3_array;
+        if ( isset( $result[ 'error' ] ) ) {
+            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'アクセストークン2が有効期限切れ もしくは 間違っています。' );
+        }
+
+        return $result;
+
     }
 }

@@ -8,6 +8,7 @@ use App\Requests\GetAccessTokenRequest;
 use App\UseCases\AccessTokens\GetAccessToken2Action;
 use App\UseCases\AccessTokens\GetAccessToken3Action;
 use App\UseCases\AccessTokens\GetAccessTokenIdAction;
+use App\UseCases\AccessTokens\SortAccessToken3Action;
 use App\UseCases\BusinessAccounts\GetBusinessAccountAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -73,6 +74,7 @@ class AccessTokenController
             return json( $response, 400 );
         }
 
+        // Access Token3とInstagram Page IDの取得
         try {
             // ToDo: ここはFormRequestで対処する
             if ( !isset( $this->request[ 'page_name' ] ) ) {
@@ -83,20 +85,11 @@ class AccessTokenController
                 return json( $response, 400 );
             }
 
-            $this->url_for_access_token3 = $this->base_url
-                . $this->instagram_management_id
-                . '/accounts';
-
-            $access_token3_response_json = Http::get( $this->url_for_access_token3, [
-                'access_token' => $this->access_token2,
-                'limit'        => '-1'
-            ] );
-
+            $access_token3_response   = ( new GetAccessToken3Action )( $this->base_url, $this->instagram_management_id );
             $this->facebook_page_name = $this->request[ 'page_name' ];
-            $responseArray            = json_decode( $access_token3_response_json->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR );
 
             // Facebookページ名を用いて、アクセストークン3を取得
-            $access_token3_array     = ( new GetAccessToken3Action )( $this->facebook_page_name, $responseArray );
+            $access_token3_array     = ( new SortAccessToken3Action )( $this->facebook_page_name, $access_token3_response );
             $this->instagram_page_id = $access_token3_array[ 'instagram_page_id' ];
             $this->access_token3     = $access_token3_array[ 'access_token' ];
 
@@ -138,6 +131,6 @@ class AccessTokenController
             'business_account' => $this->instagram_business_account,
         ];
 
-        return response()->json( $response );
+        return json( $response, 200 );
     }
 }
