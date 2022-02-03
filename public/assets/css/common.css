@@ -1,40 +1,6 @@
-.c-modal {
-    display: none;
-    height: 100vh;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1
+.input_zone {
+    max-width: 540px;
 }
-
-.c-modal_bg {
-    background: rgba(0, 0, 0, .6);
-    height: 100vh;
-    width: 100%
-}
-
-.c-modal_content {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 5px;
-    max-width: 60vw;
-    width: 100%
-}
-
-.c-modal_content_inner {
-    position: relative;
-    padding: 24px
-}
-
-.c-modal_close {
-    position: absolute;
-    top: 0;
-    right: 7px
-}
-
 .instagram__image {
     transition: all 0.5s ease-in-out;
     background-color: white;
@@ -45,4 +11,9 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+@media (max-width: 1024px) {
+    .input_zone {
+        max-width: initial;
+    }
 }

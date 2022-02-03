@@ -1,9 +1,9 @@
 @extends('layout.master')
 
 @section('main')
-    <div class="flex h-screen bg-gray-100 dark:bg-gray-900">
-        <section style="max-width: 540px" class="p-2 m-auto my-0 w-full h-full bg-white shadow-md md:p-0">
-            <div class="px-2 py-8 rounded-xl md:px-8">
+    <div class="flex flex-wrap lg:flex-nowrap h-screen bg-gray-100 dark:bg-gray-900">
+        <section class="input_zone p-6 lg:p-2 m-auto my-0 w-full lg:h-full bg-white shadow-md md:p-0">
+            <div class="px-2 py-8 rounded-xl">
                 <h1 class="mt-3 text-2xl font-medium text-center">
                     {{ $title }}
                 </h1>
