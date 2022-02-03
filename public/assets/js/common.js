@@ -42,10 +42,19 @@ function api_ajax(action, form_data) {
                 textStatus,
                 data.message ?? jqXHR.statusText
             );
+
             $("#accessTokenContent").html(data.accessToken3);
             $("#pageName").text(data.page_name);
             $("#businessAccountId").text(data.business_account);
-            $(".js-modal-open").click();
+
+            for (let i = 0; i < data.posts.length; i++) {
+                if (data.posts[i] != null) {
+                    $("#post" + i).css('background-image', "url(" + (data.posts[i].img) + ")");
+                }
+                if( i === 11 ) {
+                    break;
+                }
+            }
         })
         .fail(function (data, textStatus, jqXHR) {
             const response_text = $.parseJSON(data.responseText);

@@ -10,6 +10,7 @@ use App\UseCases\AccessTokens\GetAccessToken3Action;
 use App\UseCases\AccessTokens\GetAccessTokenIdAction;
 use App\UseCases\AccessTokens\SortAccessToken3Action;
 use App\UseCases\BusinessAccounts\GetBusinessAccountAction;
+use App\UseCases\Posts\GetInstagramPostsAction;
 use JsonException;
 
 class AccessTokenController
@@ -113,12 +114,23 @@ class AccessTokenController
 //            );
 //            $log_table->save();
 
+        try {
+            $posts = new GetInstagramPostsAction( $this->instagram_business_account, $this->access_token3 );
+        } catch ( \RuntimeException $e ) {
+            $response = [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+            return json( $response, 400 );
+        }
+
         $response = [
             'managementID'     => $this->instagram_management_id,
             'accessToken2'     => $this->access_token2,
             'accessToken3'     => $this->access_token3,
             'page_name'        => $this->facebook_page_name,
             'business_account' => $this->instagram_business_account,
+            'posts'            => $posts->getPost()
         ];
 
         return json( $response, 200 );

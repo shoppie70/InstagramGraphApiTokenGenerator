@@ -34,3 +34,15 @@
     top: 0;
     right: 7px
 }
+
+.instagram__image {
+    transition: all 0.5s ease-in-out;
+    background-color: white;
+    max-width: calc(100% / 6 - 1rem);
+    margin: 0.5rem;
+    width: 100%;
+    padding-top: 15%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
