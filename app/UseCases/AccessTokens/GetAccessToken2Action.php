@@ -26,7 +26,7 @@ class GetAccessToken2Action
         }
 
         if ( isset( $result[ 'error' ] ) ) {
-            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'アクセストークン1が有効期限切れ もしくは 間違っています。' );
+            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'Access token1 has expired or is incorrect. / アクセストークン1が有効期限切れ もしくは 間違っています。' );
         }
 
         return $result[ 'access_token' ];

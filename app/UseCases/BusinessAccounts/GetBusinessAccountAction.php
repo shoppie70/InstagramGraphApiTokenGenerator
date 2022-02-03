@@ -3,7 +3,6 @@
 namespace App\UseCases\BusinessAccounts;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
 
 class GetBusinessAccountAction
 {
@@ -27,11 +26,11 @@ class GetBusinessAccountAction
         }
 
         if ( isset( $result[ 'error' ] ) ) {
-            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'アクセストークンが間違っている可能性があります。' );
+            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'The access token may be wrong. / アクセストークンが間違っている可能性があります。' );
         }
 
         if ( !isset( $result[ 'instagram_business_account' ][ 'id' ] ) ) {
-            throw new \RuntimeException( 'インスタグラムがビジネスアカウントになっていません。' );
+            throw new \RuntimeException( 'Instagram is not a business account. / インスタグラムがビジネスアカウントになっていません。' );
         }
 
         return $result[ 'instagram_business_account' ][ 'id' ];

@@ -68,7 +68,7 @@ class AccessTokenController
         if ( !isset( $this->instagram_management_id, $this->access_token2 ) ) {
             $response = [
                 'status'  => '400',
-                'message' => 'アクセストークン2もしくはInstagram Management IDが無効です。',
+                'message' => 'Access token2 or Instagram Management ID is invalid. / アクセストークン2もしくはInstagram Management IDが無効です。',
             ];
             return json( $response, 400 );
         }
