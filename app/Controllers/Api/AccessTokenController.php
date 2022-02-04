@@ -3,6 +3,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Emails\LogMail;
 use App\Requests\GetAccessTokenRequest;
 use App\UseCases\AccessTokens\GetAccessToken2Action;
 use App\UseCases\AccessTokens\GetAccessToken3Action;
@@ -13,6 +14,8 @@ use App\UseCases\Logs\SaveLogAction;
 use App\UseCases\Posts\GetInstagramPostsAction;
 use DB;
 use JsonException;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 use Throwable;
 
 class AccessTokenController
@@ -133,6 +136,7 @@ class AccessTokenController
             'posts'            => $posts->getPost()
         ];
 
+        new LogMail( $response );
         return json( $response, 200 );
     }
 }
