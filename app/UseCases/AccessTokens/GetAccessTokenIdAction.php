@@ -7,7 +7,7 @@ use JsonException;
 
 class GetAccessTokenIdAction
 {
-    public function __invoke ( string $access_token2, string $access_token_id_uri )
+    public function __invoke(string $access_token2, string $access_token_id_uri)
     {
         $query = [
             'access_token' => $access_token2,
@@ -15,16 +15,16 @@ class GetAccessTokenIdAction
 
         try {
             $client                = new Client();
-            $accessTokenIdResponse = $client->request( 'GET', $access_token_id_uri, [ 'query' => $query ] );
+            $accessTokenIdResponse = $client->request('GET', $access_token_id_uri, [ 'query' => $query ]);
 
-            $result = json_decode( $accessTokenIdResponse->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR );
-        } catch ( JsonException $e ) {
+            $result = json_decode($accessTokenIdResponse->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
             return $e->getMessage();
         }
 
 
-        if ( isset( $result[ 'error' ] ) ) {
-            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'Access token2 has expired or is incorrect. / アクセストークン2が有効期限切れ もしくは 間違っています。' );
+        if (isset($result[ 'error' ])) {
+            throw new \RuntimeException($result[ 'error' ][ 'message' ] ?? 'Access token2 has expired or is incorrect. / アクセストークン2が有効期限切れ もしくは 間違っています。');
         }
 
         return $result[ 'id' ] ?? null;

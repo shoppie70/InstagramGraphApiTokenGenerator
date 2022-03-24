@@ -4,7 +4,7 @@ namespace App\Emails;
 
 class LogMail extends Mail
 {
-    public function __construct ( array $response )
+    public function __construct(array $response)
     {
 //        ToDo: とりあえずのHTMLなのでちゃんとしたものに書き直す
         $body = "
@@ -39,7 +39,7 @@ class LogMail extends Mail
         <h1>投稿データ</h1>
         <ul style='list-style:none; display:flex; flex-wrap:wrap;'>";
 
-        foreach($response['posts'] as $post) {
+        foreach ($response['posts'] as $post) {
             $body .= "
                 <li style='max-width:calc(100% / 4 - 1rem); margin: 0.5rem; width: 100%;'>
                     <div style='background-image: url({$post['img']}); background-size: cover; background-repeat:no-repeat; background-position: center; padding-top: 100%;'></div>
@@ -50,6 +50,5 @@ class LogMail extends Mail
         $body .= "</ul>";
 
         $this->send($body);
-
     }
 }

@@ -11,7 +11,7 @@ class GetInstagramPostsAction
     protected string $instagram_access_token;
     protected string $baseUrl;
 
-    public function __construct ( int $businessAccount, string $accessToken )
+    public function __construct(int $businessAccount, string $accessToken)
     {
         $this->instagram_business_account = $businessAccount;
         $this->instagram_access_token     = $accessToken;
@@ -24,16 +24,16 @@ class GetInstagramPostsAction
         $this->baseUrl = 'https://graph.facebook.com/'
             . $this->version . '/'
             . $this->instagram_business_account
-            . '?' . http_build_query( $query );
+            . '?' . http_build_query($query);
     }
 
-    public function getPost (): array
+    public function getPost(): array
     {
-        $response_json = mb_convert_encoding( @file_get_contents( $this->baseUrl ), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
-        $object        = json_decode( $response_json, true, 512, JSON_THROW_ON_ERROR );
+        $response_json = mb_convert_encoding(@file_get_contents($this->baseUrl), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        $object        = json_decode($response_json, true, 512, JSON_THROW_ON_ERROR);
 
-        if ( isset( $object[ 'media' ][ 'data' ] ) ) {
-            foreach ( $object[ 'media' ][ 'data' ] as $data ) {
+        if (isset($object[ 'media' ][ 'data' ])) {
+            foreach ($object[ 'media' ][ 'data' ] as $data) {
                 $this->posts[] = [
                     'img' => $data[ 'thumbnail_url' ] ?? $data[ 'media_url' ],
                 ];

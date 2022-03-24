@@ -7,7 +7,7 @@ use JsonException;
 
 class GetAccessToken2Action
 {
-    public function __invoke ( array $form_request, string $base_url )
+    public function __invoke(array $form_request, string $base_url)
     {
         $query = [
             'grant_type'        => 'fb_exchange_token',
@@ -18,15 +18,15 @@ class GetAccessToken2Action
 
         try {
             $client               = new Client();
-            $accessToken2Response = $client->request( 'GET', $base_url, [ 'query' => $query ] );
+            $accessToken2Response = $client->request('GET', $base_url, [ 'query' => $query ]);
 
-            $result = json_decode( $accessToken2Response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR );
-        } catch ( JsonException $e ) {
+            $result = json_decode($accessToken2Response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
             return $e->getMessage();
         }
 
-        if ( isset( $result[ 'error' ] ) ) {
-            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'Access token1 has expired or is incorrect. / アクセストークン1が有効期限切れ もしくは 間違っています。' );
+        if (isset($result[ 'error' ])) {
+            throw new \RuntimeException($result[ 'error' ][ 'message' ] ?? 'Access token1 has expired or is incorrect. / アクセストークン1が有効期限切れ もしくは 間違っています。');
         }
 
         return $result[ 'access_token' ];

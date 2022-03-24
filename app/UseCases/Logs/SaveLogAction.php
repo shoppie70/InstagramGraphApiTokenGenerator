@@ -2,12 +2,11 @@
 
 namespace App\UseCases\Logs;
 
-
 use App\Models\LogRecord;
 
 class SaveLogAction
 {
-    public function __invoke ( array $request, int $instagram_management_id, string $access_token2, string $access_token3, string $instagram_business_account )
+    public function __invoke(array $request, int $instagram_management_id, string $access_token2, string $access_token3, string $instagram_business_account)
     {
         $log_records = new LogRecord();
         $log_records->fill(

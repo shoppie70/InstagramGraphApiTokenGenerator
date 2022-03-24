@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class GetBusinessAccountAction
 {
-    public function __invoke ( string $base_url, int $page_id, string $access_token )
+    public function __invoke(string $base_url, int $page_id, string $access_token)
     {
         $query = [
             'fields'       => 'instagram_business_account',
@@ -17,20 +17,19 @@ class GetBusinessAccountAction
 
         try {
             $client                       = new Client();
-            $business_account_id_response = $client->request( 'GET', $target_url, [ 'query' => $query ] );
+            $business_account_id_response = $client->request('GET', $target_url, [ 'query' => $query ]);
 
-            $result = json_decode( $business_account_id_response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR );
-        } catch
-        ( \JsonException $e ) {
+            $result = json_decode($business_account_id_response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
             print $e->getMessage();
         }
 
-        if ( isset( $result[ 'error' ] ) ) {
-            throw new \RuntimeException( $result[ 'error' ][ 'message' ] ?? 'The access token may be wrong. / アクセストークンが間違っている可能性があります。' );
+        if (isset($result[ 'error' ])) {
+            throw new \RuntimeException($result[ 'error' ][ 'message' ] ?? 'The access token may be wrong. / アクセストークンが間違っている可能性があります。');
         }
 
-        if ( !isset( $result[ 'instagram_business_account' ][ 'id' ] ) ) {
-            throw new \RuntimeException( 'Instagram is not a business account. / インスタグラムがビジネスアカウントになっていません。' );
+        if (!isset($result[ 'instagram_business_account' ][ 'id' ])) {
+            throw new \RuntimeException('Instagram is not a business account. / インスタグラムがビジネスアカウントになっていません。');
         }
 
         return $result[ 'instagram_business_account' ][ 'id' ];

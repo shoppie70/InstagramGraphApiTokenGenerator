@@ -28,6 +28,10 @@ function api_ajax(action, form_data) {
     }
     ajax_active = true;
 
+    $(document).ajaxSend(function () {
+        $(".spinner-overlay").fadeIn(300);
+    });
+
     $.ajax({
         url: action,
         dataType: "json",
@@ -67,6 +71,9 @@ function api_ajax(action, form_data) {
         })
         .always(function () {
             ajax_active = false;
+            setTimeout(function () {
+                $(".spinner-overlay").fadeOut(300);
+            }, 500);
         });
 }
 
