@@ -92,6 +92,7 @@ class AccessTokenController
             print $e->getMessage();
         }
 
+        // Instagram Business Account　ID　の取得
         try {
             $this->instagram_business_account = ( new GetBusinessAccountAction() )($this->base_url, $this->instagram_page_id, $this->access_token3);
         } catch (\RuntimeException $e) {
@@ -102,19 +103,7 @@ class AccessTokenController
             return json($response, 400);
         }
 
-        try {
-            DB::beginTransaction();
-            (new SaveLogAction())($this->request, $this->instagram_management_id, $this->access_token2, $this->access_token3, $this->instagram_business_account);
-            DB::commit();
-        } catch (Throwable $e) {
-            DB::rollBack();
-            $response = [
-                'success' => false,
-                'message' => $e->getMessage(),
-            ];
-            return json($response, 400);
-        }
-
+        // インスタの投稿を取得
         try {
             $posts = new GetInstagramPostsAction($this->instagram_business_account, $this->access_token3);
         } catch (\RuntimeException $e) {
@@ -133,8 +122,7 @@ class AccessTokenController
             'business_account' => $this->instagram_business_account,
             'posts'            => $posts->getPost()
         ];
-
-        new LogMail($response);
+        
         return json($response, 200);
     }
 }
