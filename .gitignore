@@ -8,6 +8,8 @@ node_modules/
 npm-debug.log
 yarn-error.log
 cache
+.php-cs-fixer.cache
+php-cs-fixer.dist.php
 
 # Laravel 4 specific
 bootstrap/compiled.php

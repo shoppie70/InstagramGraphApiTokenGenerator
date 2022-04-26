@@ -11,10 +11,10 @@ class SortAccessToken3Action
         // Facebookページ名を用いて、アクセストークン3とInstagram Page IDを選別
         foreach ($response_array as $array) {
             foreach ($array as $data) {
-                if (isset($data[ 'name' ]) && $data[ 'name' ] === $page_name) {
+                if (isset($data['name']) && $data['name'] === $page_name) {
                     $this->access_token3_array = [
-                        'access_token'     => $data[ 'access_token' ],
-                        'instagram_page_id' => $data[ 'id' ]
+                        'access_token' => $data['access_token'],
+                        'instagram_page_id' => $data['id']
                     ];
                 }
             }
