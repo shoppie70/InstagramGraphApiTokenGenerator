@@ -25,7 +25,6 @@ class GetAccessTokenIdAction
         } catch (RuntimeException $e) {
             return $e->getMessage();
         }
-
         return $result['id'] ?? null;
     }
 }

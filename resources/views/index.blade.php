@@ -20,7 +20,7 @@
                             rel="noopener"
                             class="text-blue-600"><span class="p-1 bg-gray-200 rounded">GitHub</span></a>.
                 </p>
-                <form action="{{ $endpoint }}" class="api_form" method="POST">
+                <form action="{{ $endpoint }}" id="api_form" method="POST">
                     @csrf
                     @method($method)
                     <div class="my-5 text-sm">

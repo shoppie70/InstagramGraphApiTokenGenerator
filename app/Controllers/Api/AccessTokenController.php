@@ -76,6 +76,7 @@ class AccessTokenController
         }
 
         $response = [
+            'success' => true,
             'managementID' => $this->instagram_management_id,
             'accessToken2' => $this->access_token2,
             'accessToken3' => $this->access_token3,
