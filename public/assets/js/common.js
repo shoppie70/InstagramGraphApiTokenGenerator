@@ -11,7 +11,7 @@ function api_axios(action, formData, form) {
         )
         .catch(function (error) {
                 console.log(error);
-                showErrorToast(error);
+                showErrorToast(error.message);
             }
         )
         .finally(function () {
