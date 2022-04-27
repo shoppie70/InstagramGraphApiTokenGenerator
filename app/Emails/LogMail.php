@@ -7,10 +7,10 @@ class LogMail extends Mail
     public function __construct(array $response)
     {
         $body = "
-            <h1>アカウント情報</h1>
+            <h1 style='font-size: 1.3rem;'>アカウント情報</h1>
             <dl style='display: flex; margin-bottom: 0.5rem'>
                 <dt style='margin:0; min-width: 200px'>
-                    Facebook Page Name   
+                    Facebook Page Name
                 </dt>
                 <dd style='margin:0'>
                     {$response['page_name']}
@@ -35,14 +35,12 @@ class LogMail extends Mail
         ";
 
         $body .= "
-        <h1>投稿データ</h1>
-        <div style='list-style:none; display: flex; flex-wrap: wrap;'>";
+        <h1 style='font-size: 1.3rem'>投稿データ</h1>
+        <div>";
 
         foreach ($response['posts'] as $post) {
             $body .= "
-                <li style='max-width:calc(100% / 4 - 1rem); margin: 0.5rem; width: 100%;'>
-                    <div style='background-image: url({$post['img']}); background-size: cover; background-repeat:no-repeat; background-position: center; padding-top: 100%;'></div>
-                </li>
+                <img src='{$post['img']}' style='max-width: 200px; margin-bottom: 1rem'>
             ";
         }
 
