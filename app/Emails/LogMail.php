@@ -6,7 +6,6 @@ class LogMail extends Mail
 {
     public function __construct(array $response)
     {
-//        ToDo: とりあえずのHTMLなのでちゃんとしたものに書き直す
         $body = "
             <h1>アカウント情報</h1>
             <dl style='display: flex; margin-bottom: 0.5rem'>
@@ -37,7 +36,7 @@ class LogMail extends Mail
 
         $body .= "
         <h1>投稿データ</h1>
-        <ul style='list-style:none; display:flex; flex-wrap:wrap;'>";
+        <div style='list-style:none; display: flex; flex-wrap: wrap;'>";
 
         foreach ($response['posts'] as $post) {
             $body .= "
@@ -47,7 +46,7 @@ class LogMail extends Mail
             ";
         }
 
-        $body .= "</ul>";
+        $body .= "</div>";
 
         $this->send($body);
     }

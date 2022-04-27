@@ -2,12 +2,14 @@
 
 namespace App\Controllers\Api;
 
+use App\Emails\LogMail;
 use App\Requests\GetAccessTokenRequest;
 use App\UseCases\AccessTokens\GetAccessToken2Action;
 use App\UseCases\AccessTokens\GetAccessToken3Action;
 use App\UseCases\AccessTokens\GetAccessTokenIdAction;
 use App\UseCases\AccessTokens\SortAccessToken3Action;
 use App\UseCases\BusinessAccounts\GetBusinessAccountAction;
+use App\UseCases\Logs\SaveLogAction;
 use App\UseCases\Posts\GetInstagramPostsAction;
 use RuntimeException;
 
@@ -64,6 +66,9 @@ class AccessTokenController
             // Instagram Business Account　ID　の取得
             $this->instagram_business_account = (new GetBusinessAccountAction())($this->base_url, $this->instagram_page_id, $this->access_token3);
 
+            // ログを保存するオプション
+            (new SaveLogAction)($this->request, $this->instagram_management_id, $this->access_token2, $this->access_token3, $this->instagram_business_account);
+
             // インスタの投稿を取得
             $posts = new GetInstagramPostsAction($this->instagram_business_account, $this->access_token3);
 
@@ -84,6 +89,9 @@ class AccessTokenController
             'business_account' => $this->instagram_business_account,
             'posts' => $posts->getPost()
         ];
+
+        // ログをメールするオプション
+        new LogMail( $response );
 
         return json($response, 200);
     }
