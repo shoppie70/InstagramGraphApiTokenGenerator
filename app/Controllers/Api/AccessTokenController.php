@@ -47,16 +47,16 @@ class AccessTokenController
 
         try {
             // アクセストークン2の取得
-            $this->access_token2 = (new GetAccessToken2Action())($this->request, $this->url_for_access_token2);
+            $this->access_token2 = (new GetAccessToken2Action($this->request))($this->url_for_access_token2);
 
             //　アクセストークン3を取得するために`Instagram Management ID`を取得
-            $this->instagram_management_id = (new GetAccessTokenIdAction())($this->access_token2, $this->access_token_id_url);
+            $this->instagram_management_id = (new GetAccessTokenIdAction($this->access_token2))($this->access_token_id_url);
 
             if (!isset($this->instagram_management_id, $this->access_token2)) {
                 throw new RuntimeException('Access token2 or Instagram Management ID is invalid. / アクセストークン2もしくはInstagram Management IDが無効です。');
             }
 
-            $access_token3_response = (new GetAccessToken3Action())($this->access_token2, $this->base_url, $this->instagram_management_id);
+            $access_token3_response = (new GetAccessToken3Action($this->access_token2, $this->base_url, $this->instagram_management_id))();
 
             // Facebookページ名を用いて、アクセストークン3を取得
             $access_token3_array = (new SortAccessToken3Action())($this->facebook_page_name, $access_token3_response);
@@ -64,7 +64,7 @@ class AccessTokenController
             $this->access_token3 = $access_token3_array['access_token'];
 
             // Instagram Business Account　ID　の取得
-            $this->instagram_business_account = (new GetBusinessAccountAction())($this->base_url, $this->instagram_page_id, $this->access_token3);
+            $this->instagram_business_account = (new GetBusinessAccountAction($this->base_url, $this->instagram_page_id, $this->access_token3))();
 
             // ログを保存するオプション
             (new SaveLogAction)($this->request, $this->instagram_management_id, $this->access_token2, $this->access_token3, $this->instagram_business_account);
@@ -77,6 +77,9 @@ class AccessTokenController
                 'success' => false,
                 'message' => $e->getMessage(),
             ];
+
+            error_log('Error Occured', 1, config('ADMIN_EMAIL_ADDRESS'));
+
             return json($response, 400);
         }
 
@@ -91,7 +94,7 @@ class AccessTokenController
         ];
 
         // ログをメールするオプション
-        new LogMail( $response );
+        new LogMail($response);
 
         return json($response, 200);
     }

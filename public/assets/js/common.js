@@ -1,35 +1,30 @@
 function api_axios(action, formData, form) {
-    axios.post(action, formData)
+    axios
+        .post(action, formData)
         .then(function (response) {
-                if (response.data.success === false) {
-                    showErrorToast(response.data.message);
-                } else {
-                    setReturnValueToProperty(response.data);
-                    setPostInField(response.data.posts);
-                }
+            if (response.data.success === false) {
+                showErrorToast(response.data.message);
+            } else {
+                setReturnValueToProperty(response.data);
+                setPostInField(response.data.posts);
             }
-        )
+        })
         .catch(function (error) {
-                console.log(error);
-                showErrorToast(error.message);
-            }
-        )
+            showErrorToast(error.response.data.message ?? error.message);
+        })
         .finally(function () {
-                setTimeout(function () {
-                    fadeOut(".spinner-overlay", 1000);
-                }, 500);
-            }
-        );
+            setTimeout(function () {
+                fadeOut(".spinner-overlay", 1000);
+            }, 500);
+        });
 }
 
-function setReturnValueToProperty(data)
-{
+function setReturnValueToProperty(data) {
     document.getElementById('accessTokenContent').innerHTML = data.accessToken3;
     document.getElementById('businessAccountId').innerHTML = data.business_account;
 }
 
-function setPostInField(posts)
-{
+function setPostInField(posts) {
     for (let i = 0; i < posts.length; i++) {
         if (posts[i] != null) {
             document.getElementById('post' + i).style.backgroundImage = 'url(' + (posts[i].img) + ')';

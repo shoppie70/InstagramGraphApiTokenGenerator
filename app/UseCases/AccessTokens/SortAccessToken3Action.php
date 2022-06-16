@@ -2,6 +2,8 @@
 
 namespace App\UseCases\AccessTokens;
 
+use RuntimeException;
+
 class SortAccessToken3Action
 {
     protected array $access_token3_array = [];
@@ -18,6 +20,10 @@ class SortAccessToken3Action
                     ];
                 }
             }
+        }
+
+        if(!isset($this->access_token3_array['access_token'], $this->access_token3_array['instagram_page_id'])) {
+            throw new RuntimeException('The Facebook page you sent does not seem to be registered in your Facebook account. / 送信されたFacebookページは、ご利用のFacebookアカウントに登録されていないようです。');
         }
 
         return $this->access_token3_array;
