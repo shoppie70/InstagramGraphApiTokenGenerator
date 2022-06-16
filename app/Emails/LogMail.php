@@ -46,6 +46,6 @@ class LogMail extends Mail
 
         $body .= "</div>";
 
-        $this->send($body);
+        $this->send('トークン取得ツールの利用がありました',$body);
     }
 }

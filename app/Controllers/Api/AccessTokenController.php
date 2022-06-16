@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Emails\ErrorLogMail;
 use App\Emails\LogMail;
 use App\Requests\GetAccessTokenRequest;
 use App\UseCases\AccessTokens\GetAccessToken2Action;
@@ -78,7 +79,7 @@ class AccessTokenController
                 'message' => $e->getMessage(),
             ];
 
-            error_log('Error Occured', 1, config('ADMIN_EMAIL_ADDRESS'));
+            new ErrorLogMail($e, $access_token_request);
 
             return json($response, 400);
         }
