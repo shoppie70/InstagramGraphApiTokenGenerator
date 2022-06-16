@@ -79,7 +79,7 @@ class AccessTokenController
                 'message' => $e->getMessage(),
             ];
 
-            new ErrorLogMail($e, $access_token_request);
+            new ErrorLogMail($e, $this->request);
 
             return json($response, 400);
         }

@@ -2,15 +2,17 @@
 
 namespace App\Emails;
 
+use RuntimeException;
+
 class ErrorLogMail extends Mail
 {
-    public function __construct($e, $access_token_request)
+    public function __construct(RuntimeException $e, $access_token_request)
     {
         $body = "
             <h1 style='font-size: 1.3rem;'>Error Information</h1>
             <dl style='display: flex; margin-bottom: 0.5rem'>
                 <dt style='margin:0; min-width: 200px'>
-                    $e->getMessage()
+                    エラーメッセージ
                 </dt>
                 <dd style='margin:0'>
                     {$e->getMessage()}
