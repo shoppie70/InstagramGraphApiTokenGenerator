@@ -51,6 +51,8 @@ function showErrorToast(message) {
         closeOnClick: true,
         timeout: 10000
     });
+
+    fadeIn("#manual_tool", 1000);
 }
 
 function fadeIn(selector, msec) {
@@ -101,4 +103,8 @@ document.getElementById('api_form').addEventListener('submit', function (e) {
     fadeIn(".spinner-overlay", 1000);
 
     api_axios(action, formData, form);
+});
+
+document.getElementById('manual-tool-close').addEventListener('click', function () {
+    fadeOut("#manual_tool", 1000);
 });

@@ -3,7 +3,7 @@
 @section('scripts')
     <script>
         const domain = 'https://graph.facebook.com/';
-        const version = '/v13.0';
+        const version = 'v13.0';
         const access_token2_form = document.getElementById('access_token2_form');
         const page_id_form = document.getElementById('page_id_form');
         const access_token_3_form = document.getElementById('access_token_3_form');
@@ -50,7 +50,7 @@
 
             const access_token2 = document.getElementById('access_token2').value === '' ? document.getElementById('access_token2_same').value : document.getElementById('access_token2').value;
             const instagram_management_id = document.getElementById('instagram_management_id').value;
-            let uri = domain + version + instagram_management_id + '/accounts?';
+            let uri = domain + version + '/' + instagram_management_id + '/accounts?';
 
             const params = {
                 access_token: access_token2,
@@ -108,7 +108,7 @@
                         </div>
                         <div class="my-5 text-sm">
                             <label for="app_id" class="block text-black">
-                                App ID <span class="text-red-600">*</span>
+                                App ID
                             </label>
                             <input name="app_id" type="text" id="app_id" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
@@ -116,7 +116,7 @@
                         </div>
                         <div class="my-5 text-sm">
                             <label for="app_secret" class="block text-black">
-                                App Secret <span class="text-red-600">*</span>
+                                App Secret
                             </label>
                             <input name="app_secret" type="text" id="app_secret" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
@@ -214,14 +214,13 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;access_token: "This is Access Token3",
                             &nbsp;&nbsp;&nbsp;&nbsp;category: "XXXXXXX",
                             &nbsp;&nbsp;&nbsp;&nbsp;category_list: [
-                            &nbsp;&nbsp;&nbsp;&nbsp;{
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "XXXXXXX",
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: "XXXXXXX"
-                            &nbsp;&nbsp;&nbsp;&nbsp;}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "XXXXXXX",
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: "XXXXXXX"
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
                             &nbsp;&nbsp;&nbsp;&nbsp;],
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: "XXXXXXX",
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "This is Instagram Page ID",
-                            &nbsp;&nbsp;&nbsp;&nbsp;]
+                            &nbsp;&nbsp;&nbsp;&nbsp;name: "XXXXXXX",
+                            &nbsp;&nbsp;&nbsp;&nbsp;id: "This is Instagram Page ID",
                             },</code></pre>
                         </div>
                         <button type="submit"
@@ -256,7 +255,7 @@
                         <p class="leading-8 mb-4">
                             Copy “instagram_business_account”: “~~~~” and this is <span class="p-1 bg-gray-200 rounded">Instagram Business Acconunt ID</span>.
                         </p>
-                        <div class="overflow-x-scroll text-xs">
+                        <div class="overflow-x-scroll text-xs mb-4">
                             <pre class="bg-gray-100 p-2">
                             <code class="w-full">{
                                 &nbsp;&nbsp;&nbsp;&nbsp;instagram_business_account: {
@@ -265,6 +264,9 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;id: "XXXXXXXXX"
                             }</code></pre>
                         </div>
+                        <p class="leading-8">
+                            You can use <span class="p-1 bg-gray-200 rounded">Access Token 3</span> and <span class="p-1 bg-gray-200 rounded">Instagram Business Acconunt ID</span> to embed Instagram posts on your home page.
+                        </p>
                         <button type="submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
                             Jump Response Page!

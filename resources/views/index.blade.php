@@ -2,6 +2,7 @@
 
 @section('main')
     @include('partials.loading')
+    @include('components.manual_tool')
     <div class="flex flex-wrap lg:flex-nowrap h-screen bg-gray-100 dark:bg-gray-900">
         <section class="input_zone p-6 lg:p-2 m-auto my-0 w-full lg:h-full bg-white shadow-md md:p-0">
             <div class="px-2 py-8 rounded-xl">
