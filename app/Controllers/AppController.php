@@ -35,4 +35,15 @@ class AppController extends Controller
 
         return $this->blade('index', $variables);
     }
+
+    public function manual(): string
+    {
+        $title = 'Manual Acquisition Help tool';
+
+        $variables = [
+            'title'    => $title,
+        ];
+
+        return $this->blade('manual', $variables);
+    }
 }

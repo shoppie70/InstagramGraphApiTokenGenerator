@@ -57,7 +57,7 @@
                 </form>
                 <div class="flex justify-center items-center mt-10 md:justify-between">
                     <div style="height: 1px;" class="hidden w-4/12 bg-gray-300 md:block"></div>
-                    <p class="text-sm font-light text-gray-400 md:mx-2"> Login With Social </p>
+                    <p class="text-sm font-light text-gray-400 md:mx-2"> Social Link </p>
                     <div style="height: 1px;" class="hidden w-4/12 bg-gray-300 md:block"></div>
                 </div>
                 <div class="grid gap-2 mt-7 md:grid-cols-2">

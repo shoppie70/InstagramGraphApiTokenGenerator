@@ -4,6 +4,7 @@
 $base     = '/';
 $handlers = static function (FastRoute\RouteCollector $r) use ($base) {
     $r->addRoute('GET', $base, 'App\Controllers\AppController@index');
+    $r->addRoute('GET', $base . 'manual', 'App\Controllers\AppController@manual');
     $r->addRoute('POST', $base . 'api/v1/store', 'App\Controllers\Api\AccessTokenController@store');
 };
 
