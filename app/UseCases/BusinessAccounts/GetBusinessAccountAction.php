@@ -33,7 +33,7 @@ class GetBusinessAccountAction
         }
 
         if (!isset($this->result['instagram_business_account']['id'])) {
-            throw new RuntimeException('Instagram is not a business account. / インスタグラムがビジネスアカウントになっていません。');
+            throw new RuntimeException('Instagram is not a business account. / インスタグラムがプロアカウントになっていないか、Facebookページとインスタグラムのアカウントが正常にリンクされていません。');
         }
 
         return $this->result['instagram_business_account']['id'];
