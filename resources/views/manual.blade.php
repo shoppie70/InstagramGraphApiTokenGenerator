@@ -64,7 +64,7 @@
 
             const access_token3 = document.getElementById('access_token3').value;
             const instagram_page_id = document.getElementById('instagram_page_id').value;
-            let uri = domain + version + instagram_page_id + '?';
+            let uri = domain + version + '/' + instagram_page_id + '?';
 
             const params = {
                 fields: 'instagram_business_account',
