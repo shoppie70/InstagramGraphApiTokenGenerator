@@ -32,12 +32,12 @@ class GetBusinessAccountAction
             throw new RuntimeException($this->result['error']['message'] ?? 'The access token may be wrong. / アクセストークンが間違っている可能性があります。');
         }
 
-        if(isset($this->result['id'])) {
-            return $this->result['id'];
-        }
+        // if(isset($this->result['id'])) {
+        //     return $this->result['id'];
+        // }
 
         if (!isset($this->result['instagram_business_account']['id'])) {
-            throw new RuntimeException('Instagram is not a business account. / インスタグラムがプロアカウントになっていないか、Facebookページとインスタグラムのアカウントが正常にリンクされていません。');
+            throw new RuntimeException('Instagram is not a business account. / インスタグラムがプロアカウント（ビジネス）になっていないか、Facebookページとインスタグラムのアカウントが正常にリンクされていません。再度、手順を確認してみてください。');
         }
 
         return $this->result['instagram_business_account']['id'];
