@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-
 use eftec\bladeone\BladeOne;
 
 class Controller
@@ -12,6 +11,6 @@ class Controller
         $dir = dirname(__DIR__, 2);
         $views = $dir . '/resources/views';
         $cache = $dir . '/cache';
-        return ( new BladeOne( $views, $cache, BladeOne::MODE_AUTO ) )->run($template, $variables);
+        return ( new BladeOne($views, $cache, BladeOne::MODE_AUTO) )->run($template, $variables);
     }
 }

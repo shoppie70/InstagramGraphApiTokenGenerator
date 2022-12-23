@@ -4,13 +4,13 @@
  * DBの設定
  */
 $db_connections = [
-    'driver'    => config( 'DRIVER' ),
-    'host'      => config( 'HOST' ),
-    'database'  => config( 'DATABASE' ),
-    'username'  => config( 'USERNAME' ),
-    'password'  => config( 'PASSWORD' ),
-    'charset'   => config( 'CHARSET' ),
-    'collation' => config( 'COLLATION' )
+    'driver'    => config('DRIVER'),
+    'host'      => config('HOST'),
+    'database'  => config('DATABASE'),
+    'username'  => config('USERNAME'),
+    'password'  => config('PASSWORD'),
+    'charset'   => config('CHARSET'),
+    'collation' => config('COLLATION')
 ];
 
 class_alias(Illuminate\Database\Capsule\Manager::class, 'DB');

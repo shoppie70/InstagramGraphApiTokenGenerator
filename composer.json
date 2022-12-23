@@ -26,6 +26,10 @@
         "illuminate/http": "^8.81",
         "guzzlehttp/guzzle": "^7.4",
         "phpoption/phpoption": "^1.8",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "phpmailer/phpmailer": "^6.5"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8"
     }
 }

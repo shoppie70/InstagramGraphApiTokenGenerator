@@ -23,5 +23,4 @@ class LogRecord extends Model
         'facebook_page_name',
         'business_account',
     ];
-
 }

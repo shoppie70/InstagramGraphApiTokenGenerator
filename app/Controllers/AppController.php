@@ -6,7 +6,7 @@ use App\Models\LogRecord;
 
 class AppController extends Controller
 {
-    public function index (): string
+    public function index(): string
     {
         $title = 'Instagram Graph Api Automatic Token Acquisition Tool';
 
@@ -33,6 +33,17 @@ class AppController extends Controller
             'btns'     => $btns
         ];
 
-        return $this->blade( 'index', $variables );
+        return $this->blade('index', $variables);
+    }
+
+    public function manual(): string
+    {
+        $title = 'Manual Acquisition Help tool';
+
+        $variables = [
+            'title'    => $title,
+        ];
+
+        return $this->blade('manual', $variables);
     }
 }

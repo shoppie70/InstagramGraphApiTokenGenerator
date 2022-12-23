@@ -1,6 +1,8 @@
 @extends('layout.master')
 
 @section('main')
+    @include('partials.loading')
+    @include('components.manual_tool')
     <div class="flex flex-wrap lg:flex-nowrap h-screen bg-gray-100 dark:bg-gray-900">
         <section class="input_zone p-6 lg:p-2 m-auto my-0 w-full lg:h-full bg-white shadow-md md:p-0">
             <div class="px-2 py-8 rounded-xl">
@@ -19,7 +21,7 @@
                             rel="noopener"
                             class="text-blue-600"><span class="p-1 bg-gray-200 rounded">GitHub</span></a>.
                 </p>
-                <form action="{{ $endpoint }}" class="api_form" method="POST">
+                <form action="{{ $endpoint }}" id="api_form" method="POST">
                     @csrf
                     @method($method)
                     <div class="my-5 text-sm">
@@ -56,7 +58,7 @@
                 </form>
                 <div class="flex justify-center items-center mt-10 md:justify-between">
                     <div style="height: 1px;" class="hidden w-4/12 bg-gray-300 md:block"></div>
-                    <p class="text-sm font-light text-gray-400 md:mx-2"> Login With Social </p>
+                    <p class="text-sm font-light text-gray-400 md:mx-2"> Social Link </p>
                     <div style="height: 1px;" class="hidden w-4/12 bg-gray-300 md:block"></div>
                 </div>
                 <div class="grid gap-2 mt-7 md:grid-cols-2">
