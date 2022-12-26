@@ -2,6 +2,7 @@
 
 namespace App\UseCases\AccessTokens;
 
+use Illuminate\Support\Facades\Lang;
 use RuntimeException;
 
 class SortAccessToken3Action
@@ -15,15 +16,15 @@ class SortAccessToken3Action
             foreach ($array as $data) {
                 if (isset($data['name']) && $data['name'] === $page_name) {
                     $this->access_token3_array = [
-                        'access_token' => $data['access_token'],
-                        'instagram_page_id' => $data['id']
+                        'access_token' => $data['access_token'] ?? null,
+                        'instagram_page_id' => $data['id'] ?? null
                     ];
                 }
             }
         }
 
-        if(!isset($this->access_token3_array['access_token'], $this->access_token3_array['instagram_page_id'])) {
-            throw new RuntimeException('The Facebook page you sent does not seem to be registered in your Facebook account. / 送信されたFacebookページは、ご利用のFacebookアカウントに登録されていないようです。');
+        if (!isset($this->access_token3_array['access_token'], $this->access_token3_array['instagram_page_id'])) {
+            throw new RuntimeException(Lang::get('validation.facebook_page_none'));
         }
 
         return $this->access_token3_array;

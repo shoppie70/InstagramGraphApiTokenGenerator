@@ -2,55 +2,44 @@
 
 namespace App\Emails;
 
-use RuntimeException;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
-class ErrorLogMail extends Mail
+class ErrorLogMail extends Mailable
 {
-    public function __construct(RuntimeException $e, $access_token_request)
-    {
-        $body = "
-            <h1 style='font-size: 1.3rem;'>Error Information</h1>
-            <dl style='display: flex; margin-bottom: 0.5rem'>
-                <dt style='margin:0; min-width: 200px'>
-                    エラーメッセージ
-                </dt>
-                <dd style='margin:0'>
-                    {$e->getMessage()}
-                </dd>
-            </dl>
-            <dl style='display: flex; margin-bottom: 0.5rem'>
-                <dt style='margin:0; min-width: 200px'>
-                    アクセストークン1
-                </dt>
-                <dd style='margin:0'>
-                    {$access_token_request['access_token1']}
-                </dd>
-            </dl>
-            <dl style='display: flex; margin-bottom: 0.5rem'>
-                <dt style='margin:0; min-width: 200px'>
-                    app_id
-                </dt>
-                <dd style='margin:0'>
-                    {$access_token_request['app_id']}
-                </dd>
-            </dl>
-            <dl style='display: flex; margin-bottom: 0.5rem'>
-                <dt style='margin:0; min-width: 200px'>
-                    app_secret
-                </dt>
-                <dd style='margin:0'>
-                    {$access_token_request['app_secret']}
-                </dd>
-            </dl>
-            <dl style='display: flex; margin-bottom: 0.5rem'>
-                <dt style='margin:0; min-width: 200px'>
-                    facebook_page_name
-                </dt>
-                <dd style='margin:0'>
-                    {$access_token_request['facebook_page_name']}
-                </dd>
-            </dl>";
+    use Queueable;
+    use SerializesModels;
 
-        $this->send('トークン取得ツールでエラーが発生しました。', $body);
+    /**
+     * Create a new message instance.
+     */
+    public array $request;
+    public string $message;
+    public string $title;
+
+    public function __construct(string $message, array $request)
+    {
+        $this->request = $request;
+        $this->message = $message;
+        $this->title = 'Error Occurred!';
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build(): static
+    {
+        return $this->markdown('mail.error')
+            ->subject($this->title)
+            ->to(config('app.admin_email'))
+            ->from('noreply@salvador79.dev')
+            ->with([
+                'title' => $this->title,
+                'request' => $this->request,
+                'message' => $this->message,
+            ]);
     }
 }

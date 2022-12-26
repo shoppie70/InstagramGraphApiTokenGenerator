@@ -3,6 +3,9 @@
 namespace App\UseCases\AccessTokens;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Lang;
+use JsonException;
 use RuntimeException;
 
 class GetAccessToken3Action
@@ -22,15 +25,19 @@ class GetAccessToken3Action
         ];
     }
 
+    /**
+     * @throws GuzzleException
+     * @throws JsonException
+     */
     public function __invoke()
     {
         $client = new Client();
-        $access_token3_response_json = $client->request('GET', $this->url_for_access_token3, ['query' => $this->query]);
+        $access_token3_response_json = $client->request('GET', $this->url_for_access_token3, ['query' => $this->query, 'http_errors' => false]);
 
-        $result = json_decode($access_token3_response_json->getBody()->getContents(), true);
+        $result = json_decode($access_token3_response_json->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         if (isset($result['error'])) {
-            throw new RuntimeException($result['error']['message'] ?? 'Access token2 has expired or is incorrect. / アクセストークン2が有効期限切れ もしくは 間違っています。');
+            throw new RuntimeException(Lang::get('validation.access_token2'));
         }
 
         return $result;

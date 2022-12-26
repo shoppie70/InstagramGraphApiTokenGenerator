@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 $finder = PhpCsFixer\Finder::create()
     ->in([
         __DIR__ . '/app',
         __DIR__ . '/config',
-        __DIR__ . '/resources',
+        __DIR__ . '/database/seeders',
+        __DIR__ . '/tests',
     ]);
 
 $config = new PhpCsFixer\Config();
@@ -91,10 +90,17 @@ return $config
         // PHP Tag
 
         // PHPUnit
+        'php_unit_strict' => false,
+        'php_unit_method_casing' => [
+            'case' => 'snake_case'
+        ],
+        'php_unit_test_annotation' => [
+            'style' => 'annotation'
+        ],
         'php_unit_test_case_static_method_calls' => [
             'call_type' => 'this'
         ],
-        'php_unit_strict' => false,
+
 
         // PHPDoc
         'align_multiline_comment' => true,
