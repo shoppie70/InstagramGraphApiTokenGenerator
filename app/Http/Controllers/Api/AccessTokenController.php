@@ -14,6 +14,8 @@ use App\UseCases\Logs\SaveLogAction;
 use App\UseCases\Posts\GetInstagramPostsAction;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Mail;
 use RuntimeException;
 
 class AccessTokenController extends Controller
@@ -54,13 +56,14 @@ class AccessTokenController extends Controller
             $this->instagram_management_id = (new GetAccessTokenIdAction($this->access_token2))($this->access_token_id_url);
 
             if (!isset($this->instagram_management_id, $this->access_token2)) {
-                throw new RuntimeException('Access token2 or Instagram Management ID is invalid. / アクセストークン2もしくはInstagram Management IDが無効です。');
+                throw new RuntimeException(Lang::get('validation.invalid_token2'));
             }
 
             $access_token3_response = (new GetAccessToken3Action($this->access_token2, $this->base_url, $this->instagram_management_id))();
 
             // Facebookページ名を用いて、アクセストークン3を取得
             $access_token3_array = (new SortAccessToken3Action())($this->facebook_page_name, $access_token3_response);
+
             $this->instagram_page_id = $access_token3_array['instagram_page_id'];
             $this->access_token3 = $access_token3_array['access_token'];
 
@@ -71,28 +74,16 @@ class AccessTokenController extends Controller
             (new SaveLogAction)($request, $this->instagram_management_id, $this->access_token2, $this->access_token3, $this->instagram_business_account);
 
             DB::commit();
-        } catch (RuntimeException $e) {
+        } catch (RuntimeException|GuzzleException|\JsonException $e) {
             DB::rollback();
             report($e);
 
             $this->error_mail($e->getMessage(), $request->all());
 
             return response()->json([
-                'status' => 'error',
-                'code' => '401',
+                'status' => 401,
+                'code' => $e->getCode(),
                 'message' => $e->getMessage(),
-            ]);
-
-        } catch (GuzzleException|\JsonException $e) {
-            DB::rollback();
-            report($e);
-
-            $this->error_mail($e->getMessage(), $request->all());
-
-            return response()->json([
-                'status' => 'error',
-                'code' => '401',
-                'message' => '通信エラーが発生しました。'
             ]);
         }
 
@@ -100,51 +91,47 @@ class AccessTokenController extends Controller
             // インスタの投稿を取得
             $posts = (new GetInstagramPostsAction())($this->instagram_business_account, $this->access_token3);
 
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             report($e);
 
             $this->error_mail($e->getMessage(), $request->all());
 
             return response()->json([
-                'status' => 'error',
-                'code' => '401',
-                'message' => 'インスタの投稿取得エラー。'
+                'status' => 401,
+                'code' => $e->getCode(),
+                'message' => Lang::get('validation.instagram_posts_error')
             ]);
         }
 
-        $response = [
-            'success' => true,
-            'managementID' => $this->instagram_management_id,
-            'accessToken2' => $this->access_token2,
-            'accessToken3' => $this->access_token3,
-            'page_name' => $this->facebook_page_name,
-            'business_account' => $this->instagram_business_account,
-            'posts' => $posts
-        ];
-
         try {
-            // ログをメールするオプション
-            new LogMail($response);
-        }
-        catch (\Exception $e) {
+            Mail::send(new LogMail([
+                'access_token1' => $request->get('access_token1'),
+                'app_id' => $request->get('app_id'),
+                'app_secret' => $request->get('app_secret'),
+                'facebook_page_name' => $this->facebook_page_name,
+                'access_token3' => $this->access_token3,
+                'business_account_id' => $this->instagram_business_account,
+                'posts' => $posts
+            ]));
+        } catch (\Exception $e) {
             DB::rollback();
             report($e);
 
             $this->error_mail($e->getMessage(), $request->all());
 
             return response()->json([
-                'status' => 'error',
-                'code' => '401',
-                'message' => '通信エラーが発生しました。'
+                'status' => 401,
+                'code' => $e->getCode(),
+                'message' => Lang::get('validation.communication_error')
             ]);
         }
 
         return response()->json([
-            'status' => 'error',
-            'code' => '401',
-            'data' => $response,
+            'status' => 200,
+            'accessToken3' => $this->access_token3,
+            'business_account' => $this->instagram_business_account,
+            'posts' => $posts
         ]);
     }
 }

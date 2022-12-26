@@ -16,7 +16,7 @@
                 </h2>
                 <textarea id="{{ $btn['btn_id'] }}"
                           class="px-3 py-2 w-full text-gray-700 rounded-lg border text focus:outline-none"
-                          placeholder="{{ $btn['display_name'] . ' will be displayed. / ' . $btn['display_name_ja'] .'が表示されます。' }}"
+                          placeholder=""
                           rows="2"></textarea>
                 <div class="mt-2 mr-2 text-right">
                     <button type="button" onclick="copyToClipboard('{{ $btn['btn_id'] }}')"

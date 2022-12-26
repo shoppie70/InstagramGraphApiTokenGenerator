@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Lang;
+
 class AppController extends Controller
 {
     public function index()
@@ -15,23 +17,21 @@ class AppController extends Controller
             [
                 'btn_id' => 'accessTokenContent',
                 'display_name' => 'Access Token3',
-                'display_name_ja' => 'アクセストークン3',
             ],
             [
                 'btn_id' => 'businessAccountId',
                 'display_name' => 'Instagram Business Account ID',
-                'display_name_ja' => 'Instagram Business AccountのID',
             ]
         ];
 
         $usage_items = [
-            'Switch your Instagram account to a professional account.',
-            'Link your Facebook Page to Instagram account.',
-            'Access <a class="text-blue-600" href="https://developers.facebook.com/tools">Meta for Developers</a>.',
-            'Obtain <span class="label">Access Token1</span>, <span class="label">app secret</span>, <span class="label">App ID</span>.',
-            'Enter the data into form of this tool.',
-            '<span class="label">Access token 3</span> and <span class="label">Instagram Business Account ID</span> will be obtained automatically.',
-            'You can embed it into your website in any way you like.',
+            Lang::get('flow.step1'),
+            Lang::get('flow.step2'),
+            Lang::get('flow.step3'),
+            Lang::get('flow.step4'),
+            Lang::get('flow.step5'),
+            Lang::get('flow.step6'),
+            Lang::get('flow.step7'),
         ];
 
         return view('index', compact(
@@ -47,10 +47,8 @@ class AppController extends Controller
     {
         $title = 'Manual Acquisition Help tool';
 
-        $variables = [
-            'title' => $title,
-        ];
-
-        return $this->blade('manual', $variables);
+        return view('manual', compact(
+            'title',
+        ));
     }
 }

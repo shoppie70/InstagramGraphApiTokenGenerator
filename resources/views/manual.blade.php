@@ -85,8 +85,13 @@
         </h1>
         <p class="text-center mb-4 ">
             Paste the data yourself and press the submit button. <br>
-            Then you can see <strong>the response of Instagram Graph API</strong>, so you can handle detailed errors.
+            Then you can see <strong>the response of Instagram Graph API</strong>, so you can handle detailed errors.<br>
+            It is recommended to install  <span class="label">Firefox Developer Edition</span> or Chrome extension <span class="label">JsonVue</span> for easier viewing of JSON.
         </p>
+
+        <a href="{{ route('index') }}" class="text-sm absolute inline-block top-0 right-0 py-2 px-8 bg-blue-300 text-white font-bold">
+            For Auto Acquisition Tool
+        </a>
         <div class="flex h-full">
             <section class="w-1/4 p-6 border-r lg:p-2 m-auto my-0 w-full bg-white md:p-0">
                 <div class="px-2 py-8 rounded-xl">
@@ -124,14 +129,14 @@
                         </div>
                         <p class="mb-4">
                             Copy “access_token”: “~~~~” and this is <span
-                                    class="label">Access Token 2</span>.
+                                class="label">Access Token 2</span>.
                         </p>
                         <div class="overflow-x-scroll text-xs">
-                            <pre class="bg-gray-100 p-2">
-                            <code class="w-full">{
-                                &nbsp;&nbsp;&nbsp;&nbsp;access_token: "This is Access Token2",
-                                &nbsp;&nbsp;&nbsp;&nbsp;token_type: "bearer"
-                            }</code></pre>
+<pre class="bg-gray-100 p-2">
+<code class="w-full">{
+    access_token: "This is Access Token2",
+    token_type: "bearer"
+}</code></pre>
                         </div>
                         <button type="submit"
                                 id="token2_submit"
@@ -148,7 +153,7 @@
                     </h2>
                     <p class="leading-8">
                         Obtain <span class="label">Instagram Management ID</span> by using <span
-                                class="label">Access Token 2</span>.
+                            class="label">Access Token 2</span>.
                     </p>
                     <form id="page_id_form" action="">
                         <div class="mt-5 mb-8 text-sm">
@@ -161,11 +166,11 @@
                         </div>
 
                         <div class="overflow-x-scroll text-xs">
-                            <pre class="bg-gray-100 p-2">
-                            <code class="w-full">{
-                                &nbsp;&nbsp;&nbsp;&nbsp;name: "XXXXXXXX",
-                                &nbsp;&nbsp;&nbsp;&nbsp;id: "This is Management ID"
-                            }</code></pre>
+<pre class="bg-gray-100 p-2">
+<code class="w-full">{
+    name: "XXXXXXXX",
+    id: "This is Management ID"
+}</code></pre>
                         </div>
                         <button type="submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
@@ -181,9 +186,9 @@
                     </h2>
                     <p class="leading-8">
                         Get <span class="label">Access Token 3</span> and <span
-                                class="label">Instagram Page ID</span> by using <span
-                                class="label">Access Token 2</span> and <span
-                                class="label">Instagram Management ID</span>.
+                            class="label">Instagram Page ID</span> by using <span
+                            class="label">Access Token 2</span> and <span
+                            class="label">Instagram Management ID</span>.
                     </p>
                     <form id="access_token_3_form" action="">
                         <div class="my-5 text-sm">
@@ -205,23 +210,23 @@
                         </div>
                         <p class="mb-4">
                             Copy <span class="label">Access Token 3</span> and <span
-                                    class="label">Instagram Page ID</span>.<br>
+                                class="label">Instagram Page ID</span>.<br>
                             Below, this is response sample.
                         </p>
                         <div class="overflow-scroll text-xs">
-                            <pre class="bg-gray-100 p-2">
-                            <code class="w-full">{
-                            &nbsp;&nbsp;&nbsp;&nbsp;access_token: "This is Access Token3",
-                            &nbsp;&nbsp;&nbsp;&nbsp;category: "XXXXXXX",
-                            &nbsp;&nbsp;&nbsp;&nbsp;category_list: [
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "XXXXXXX",
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: "XXXXXXX"
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
-                            &nbsp;&nbsp;&nbsp;&nbsp;],
-                            &nbsp;&nbsp;&nbsp;&nbsp;name: "XXXXXXX",
-                            &nbsp;&nbsp;&nbsp;&nbsp;id: "This is Instagram Page ID",
-                            },</code></pre>
+<pre class="bg-gray-100 p-2">
+<code class="w-full">{
+    access_token: "This is Access Token3",
+    category: "XXXXXXX",
+    category_list: [
+        {
+            id: "XXXXXXX",
+            name: "XXXXXXX"
+        }
+    ],
+    name: "XXXXXXX",
+    id: "This is Instagram Page ID",
+},</code></pre>
                         </div>
                         <button type="submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
@@ -253,19 +258,20 @@
                                    placeholder="token here" required="">
                         </div>
                         <p class="leading-8 mb-4">
-                            Copy “instagram_business_account”: “~~~~” and this is <span class="label">Instagram Business Acconunt ID</span>.
+                            Copy “instagram_business_account”: “~~~~” and this is <span class="label">Instagram Business Account ID</span>.
                         </p>
                         <div class="overflow-x-scroll text-xs mb-4">
-                            <pre class="bg-gray-100 p-2">
-                            <code class="w-full">{
-                                &nbsp;&nbsp;&nbsp;&nbsp;instagram_business_account: {
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "This is Instagram Business Account"
-                                &nbsp;&nbsp;&nbsp;&nbsp;},
-                                &nbsp;&nbsp;&nbsp;&nbsp;id: "XXXXXXXXX"
-                            }</code></pre>
+<pre class="bg-gray-100 p-2">
+<code class="w-full">{
+    instagram_business_account: {
+        id: "This is Instagram Business Account"
+    },
+    id: "XXXXXXXXX"
+}</code></pre>
                         </div>
                         <p class="leading-8">
-                            You can use <span class="label">Access Token 3</span> and <span class="label">Instagram Business Acconunt ID</span> to embed Instagram posts on your home page.
+                            You can use <span class="label">Access Token 3</span> and <span class="label">Instagram Business Account ID</span>
+                            to embed Instagram posts on your home page.
                         </p>
                         <button type="submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">

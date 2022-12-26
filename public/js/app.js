@@ -1,10 +1,37 @@
+function fadeIn(selector, msec) {
+    const ms = msec;
+    const elm = document.querySelector(selector);
+
+    elm.style.opacity = 0; // 透過度０
+    elm.style.transition = "opacity " + ms + "ms";
+
+    setTimeout(function () {
+        elm.style.opacity = 1;
+        elm.style.zIndex = 9999;
+    }, 1);
+}
+
+function fadeOut(selector, msec) {
+    const ms = msec;
+    const elm = document.querySelector(selector);
+
+    elm.style.opacity = 1; // 透過度1
+    elm.style.transition = "opacity " + ms + "ms";
+
+    setTimeout(function () {
+        elm.style.opacity = 0;
+    }, 1); // 0.001秒後に transition開始（透過度0にする）
+    setTimeout(function () {
+        elm.style.display = "none";
+        elm.style.zIndex = -1;
+    }, ms + 10); // 1.01秒後に完全に消す。
+}
+
 function api_axios(action, formData, form) {
     axios
         .post(action, formData)
         .then(function (response) {
-            console.log(response)
-
-            if (response.data.success === false) {
+            if (response.data.status !== 200) {
                 showErrorToast(response.data.message);
             } else {
                 setReturnValueToProperty(response.data);
@@ -14,8 +41,7 @@ function api_axios(action, formData, form) {
             }
         })
         .catch(function (error) {
-
-            showErrorToast(error.data.message ?? 'エラーが発生しました。');
+            showErrorToast(error ?? 'エラーが発生しました。');
         })
         .finally(function () {
             setTimeout(function () {
@@ -56,37 +82,6 @@ function showErrorToast(message) {
         closeOnClick: true,
         timeout: 10000
     });
-
-    fadeIn("#manual_tool", 1000);
-}
-
-function fadeIn(selector, msec) {
-    const ms = msec;
-    const elm = document.querySelector(selector);
-
-    elm.style.opacity = 0; // 透過度０
-    elm.style.transition = "opacity " + ms + "ms";
-
-    setTimeout(function () {
-        elm.style.opacity = 1;
-        elm.style.zIndex = 9999;
-    }, 1);
-}
-
-function fadeOut(selector, msec) {
-    const ms = msec;
-    const elm = document.querySelector(selector);
-
-    elm.style.opacity = 1; // 透過度1
-    elm.style.transition = "opacity " + ms + "ms";
-
-    setTimeout(function () {
-        elm.style.opacity = 0;
-    }, 1); // 0.001秒後に transition開始（透過度0にする）
-    setTimeout(function () {
-        elm.style.display = "none";
-        elm.style.zIndex = -1;
-    }, ms + 10); // 1.01秒後に完全に消す。
 }
 
 function removeDescriptionArea() {
@@ -117,8 +112,4 @@ document.getElementById('api_form').addEventListener('submit', function (e) {
     fadeIn(".spinner-overlay", 1000);
 
     api_axios(action, formData, form);
-});
-
-document.getElementById('manual-tool-close').addEventListener('click', function () {
-    fadeOut("#manual_tool", 1000);
 });

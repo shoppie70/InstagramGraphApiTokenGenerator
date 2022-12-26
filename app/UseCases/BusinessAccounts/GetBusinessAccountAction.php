@@ -4,6 +4,7 @@ namespace App\UseCases\BusinessAccounts;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Lang;
 use JsonException;
 use RuntimeException;
 
@@ -30,16 +31,16 @@ class GetBusinessAccountAction
     public function __invoke()
     {
         $client = new Client();
-        $business_account_id_response = $client->request('GET', $this->target_url, ['query' => $this->query]);
+        $business_account_id_response = $client->request('GET', $this->target_url, ['query' => $this->query, 'http_errors' => false]);
 
         $this->result = json_decode($business_account_id_response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         if (isset($this->result['error'])) {
-            throw new RuntimeException($this->result['error']['message'] ?? 'The access token may be wrong. / アクセストークンが間違っている可能性があります。');
+            throw new RuntimeException(Lang::get('validation.access_token_wrong'));
         }
 
         if (!isset($this->result['instagram_business_account']['id'])) {
-            throw new RuntimeException('Instagram is not a business account. / インスタグラムがプロアカウント（ビジネス）になっていないか、Facebookページとインスタグラムのアカウントが正常にリンクされていません。再度、手順を確認してみてください。');
+            throw new RuntimeException(Lang::get('validation.wrong_link_account'));
         }
 
         return $this->result['instagram_business_account']['id'];

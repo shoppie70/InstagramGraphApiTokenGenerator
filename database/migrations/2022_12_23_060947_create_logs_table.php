@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->string('app_id')->nullable();
-            $table->string('app_secret')->nullable();
-            $table->string('management_id')->nullable();
-            $table->string('access_token_1')->nullable();
-            $table->string('access_token_2')->nullable();
-            $table->string('access_token_3')->nullable();
-            $table->string('facebook_page_name')->nullable();
-            $table->string('business_account')->nullable();
+            $table->LongText('app_id')->nullable();
+            $table->LongText('app_secret')->nullable();
+            $table->LongText('management_id')->nullable();
+            $table->LongText('access_token_1')->nullable();
+            $table->LongText('access_token_2')->nullable();
+            $table->LongText('access_token_3')->nullable();
+            $table->LongText('facebook_page_name')->nullable();
+            $table->LongText('business_account')->nullable();
             $table->timestamps();
         });
     }

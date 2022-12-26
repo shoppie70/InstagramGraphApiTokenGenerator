@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [AppController::class, 'index'])->name('index');
-Route::post('/manual', [AppController::class, 'manual'])->name('manual');
-Route::post('/store', [AccessTokenController::class, 'store'])->name('store');
+
+Route::group(['middleware'=>'set.locale'], static function () {
+    Route::get('/', [AppController::class, 'index'])->name('index');
+    Route::get('/manual', [AppController::class, 'manual'])->name('manual');
+    Route::post('/store', [AccessTokenController::class, 'store'])->name('store');
+
+
+    Route::get('/set-locale/{locale}', static function($locale) {
+        session()->put('locale', $locale);
+        return redirect()->back();
+    })->name('locale');
+});
