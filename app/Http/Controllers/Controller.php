@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Mail;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     public function error_mail($message, array $request): void
     {

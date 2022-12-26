@@ -71,7 +71,7 @@ class AccessTokenController extends Controller
             $this->instagram_business_account = (new GetBusinessAccountAction($this->base_url, $this->instagram_page_id, $this->access_token3))();
 
             // ログを保存するオプション
-            (new SaveLogAction)($request, $this->instagram_management_id, $this->access_token2, $this->access_token3, $this->instagram_business_account);
+            (new SaveLogAction())($request, $this->instagram_management_id, $this->access_token2, $this->access_token3, $this->instagram_business_account);
 
             DB::commit();
         } catch (RuntimeException|GuzzleException|\JsonException $e) {
@@ -90,7 +90,6 @@ class AccessTokenController extends Controller
         try {
             // インスタの投稿を取得
             $posts = (new GetInstagramPostsAction())($this->instagram_business_account, $this->access_token3);
-
         } catch (\Exception $e) {
             DB::rollback();
             report($e);

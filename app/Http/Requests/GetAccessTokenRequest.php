@@ -26,4 +26,3 @@ class GetAccessTokenRequest extends FormRequest
         ];
     }
 }
-

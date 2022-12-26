@@ -23,7 +23,7 @@ Route::group(['middleware'=>'set.locale'], static function () {
     Route::post('/store', [AccessTokenController::class, 'store'])->name('store');
 
 
-    Route::get('/set-locale/{locale}', static function($locale) {
+    Route::get('/set-locale/{locale}', static function ($locale) {
         session()->put('locale', $locale);
         return redirect()->back();
     })->name('locale');
