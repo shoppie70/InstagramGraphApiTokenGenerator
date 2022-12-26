@@ -20,7 +20,7 @@ class LogMail extends Mailable
     public function __construct(array $result)
     {
         $this->result = $result;
-        $this->title = 'Error Occurred!';
+        $this->title = 'New Post!';
     }
 
     /**
@@ -32,11 +32,11 @@ class LogMail extends Mailable
     {
         return $this->markdown('mail.log')
             ->subject($this->title)
-            ->to(config('admin_email'))
+            ->to(config('app.admin_email'))
             ->from('noreply@salvador79.dev')
             ->with([
                 'title' => $this->title,
-                'request' => $this->result,
+                'result' => $this->result,
             ]);
     }
 }

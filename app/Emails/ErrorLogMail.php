@@ -34,7 +34,7 @@ class ErrorLogMail extends Mailable
     {
         return $this->markdown('mail.error')
             ->subject($this->title)
-            ->to(config('admin_email'))
+            ->to(config('app.admin_email'))
             ->from('noreply@salvador79.dev')
             ->with([
                 'title' => $this->title,
