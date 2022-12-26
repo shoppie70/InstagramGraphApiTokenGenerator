@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\AccessTokenController;
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [AppController::class, 'index'])->name('index');
+Route::post('/manual', [AppController::class, 'manual'])->name('manual');
+Route::post('/store', [AccessTokenController::class, 'store'])->name('store');
