@@ -2,7 +2,8 @@ function fadeIn(selector, msec) {
     const ms = msec;
     const elm = document.querySelector(selector);
 
-    elm.style.opacity = 0; // 透過度０
+    elm.style.display = "block";
+    elm.style.opacity = 0;
     elm.style.transition = "opacity " + ms + "ms";
 
     setTimeout(function () {
@@ -15,7 +16,7 @@ function fadeOut(selector, msec) {
     const ms = msec;
     const elm = document.querySelector(selector);
 
-    elm.style.opacity = 1; // 透過度1
+    elm.style.opacity = 1;
     elm.style.transition = "opacity " + ms + "ms";
 
     setTimeout(function () {
