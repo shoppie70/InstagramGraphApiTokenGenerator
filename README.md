@@ -1,5 +1,4 @@
-# Instagram Graph API Automatic Token Acquisition Tool
-
+# InstagramGraphApiTokenGenerator
 
 ## Description
 This is a tool to automatically get Instagram Graph API access token 3 and Instagram Business Account ID just by entering App ID,App Secret, access token 1, and Facebook Page name.
