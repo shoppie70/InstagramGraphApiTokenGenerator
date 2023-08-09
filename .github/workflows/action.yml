@@ -1,0 +1,45 @@
+name: php-cs-fixer
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-20.04
+    steps:
+      -   name: Setup PHP 7.4
+          run: sudo update-alternatives --set php /usr/bin/php7.4
+      -   uses: actions/checkout@master
+      -   name: git setting
+          run: |
+            git config --local user.email "info@hajimecreate.com"
+            git config --local user.name "Hajimecreate"
+      -   name: Prepare
+          run: |
+            wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
+            chmod a+x php-cs-fixer
+      -   name: php-cs-fixer
+          run: php php-cs-fixer fix . --config=php_cs.dist
+      -   uses: actions/setup-node@v1
+          with:
+            node-version: 14.x
+      -   name: Run Prettier
+          run: |
+            npx prettier --write '**/*.{js,json,md,scss,css,html}' --tab-width 4
+      -   name: Commit and Push
+          run: |
+            line=`git diff | wc -l`
+            if [ $line -eq 0 ]; then
+              echo "コミットするものがないので終了"
+              exit 0
+            fi
+            git add .
+            git commit -m "Code fix by Github Action" -a
+            git pull
+            git push origin HEAD

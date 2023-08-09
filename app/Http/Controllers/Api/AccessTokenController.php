@@ -35,7 +35,7 @@ class AccessTokenController extends Controller
 
     public function __construct()
     {
-        $this->version = 'v13.0';
+        $this->version = 'v17.0';
         $this->host = 'https://graph.facebook.com/';
         $this->base_url = $this->host . $this->version;
         $this->url_for_access_token2 = $this->base_url . '/oauth/access_token';
