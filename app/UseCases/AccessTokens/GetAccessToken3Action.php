@@ -21,7 +21,7 @@ class GetAccessToken3Action
 
         $this->query = [
             'access_token' => $access_token2,
-            'limit' => '1000'
+            'limit'        => '1000'
         ];
     }
 
@@ -31,7 +31,7 @@ class GetAccessToken3Action
      */
     public function __invoke()
     {
-        $client = new Client();
+        $client                      = new Client();
         $access_token3_response_json = $client->request('GET', $this->url_for_access_token3, ['query' => $this->query, 'http_errors' => false]);
 
         $result = json_decode($access_token3_response_json->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);

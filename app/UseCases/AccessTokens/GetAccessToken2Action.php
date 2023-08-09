@@ -16,9 +16,9 @@ class GetAccessToken2Action
     public function __construct(GetAccessTokenRequest $form_request)
     {
         $this->query = [
-            'grant_type' => 'fb_exchange_token',
-            'client_id' => $form_request->get('app_id'),
-            'client_secret' => $form_request->get('app_secret'),
+            'grant_type'        => 'fb_exchange_token',
+            'client_id'         => $form_request->get('app_id'),
+            'client_secret'     => $form_request->get('app_secret'),
             'fb_exchange_token' => $form_request->get('access_token1'),
         ];
     }
@@ -29,7 +29,7 @@ class GetAccessToken2Action
      */
     public function __invoke(string $base_url)
     {
-        $client = new Client();
+        $client               = new Client();
         $accessToken2Response = $client->request('GET', $base_url, ['query' => $this->query, 'http_errors' => false]);
 
         $result = json_decode($accessToken2Response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);

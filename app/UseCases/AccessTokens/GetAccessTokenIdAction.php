@@ -25,7 +25,7 @@ class GetAccessTokenIdAction
      */
     public function __invoke(string $access_token_id_uri)
     {
-        $client = new Client();
+        $client                = new Client();
         $accessTokenIdResponse = $client->request('GET', $access_token_id_uri, ['query' => $this->query, 'http_errors' => false]);
 
         $result = json_decode($accessTokenIdResponse->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);

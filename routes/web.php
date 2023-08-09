@@ -25,6 +25,7 @@ Route::group(['middleware'=>'set.locale'], static function () {
 
     Route::get('/set-locale/{locale}', static function ($locale) {
         session()->put('locale', $locale);
+
         return redirect()->back();
     })->name('locale');
 });

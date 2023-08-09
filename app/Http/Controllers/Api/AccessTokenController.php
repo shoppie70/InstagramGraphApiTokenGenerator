@@ -35,11 +35,11 @@ class AccessTokenController extends Controller
 
     public function __construct()
     {
-        $this->version = 'v17.0';
-        $this->host = 'https://graph.facebook.com/';
-        $this->base_url = $this->host . $this->version;
+        $this->version               = 'v17.0';
+        $this->host                  = 'https://graph.facebook.com/';
+        $this->base_url              = $this->host . $this->version;
         $this->url_for_access_token2 = $this->base_url . '/oauth/access_token';
-        $this->access_token_id_url = $this->base_url . '/me';
+        $this->access_token_id_url   = $this->base_url . '/me';
     }
 
     public function store(GetAccessTokenRequest $request): \Illuminate\Http\JsonResponse
@@ -65,7 +65,7 @@ class AccessTokenController extends Controller
             $access_token3_array = (new SortAccessToken3Action())($this->facebook_page_name, $access_token3_response);
 
             $this->instagram_page_id = $access_token3_array['instagram_page_id'];
-            $this->access_token3 = $access_token3_array['access_token'];
+            $this->access_token3     = $access_token3_array['access_token'];
 
             // Instagram Business Account　ID　の取得
             $this->instagram_business_account = (new GetBusinessAccountAction($this->base_url, $this->instagram_page_id, $this->access_token3))();
@@ -81,8 +81,8 @@ class AccessTokenController extends Controller
             $this->error_mail($e->getMessage(), $request->all());
 
             return response()->json([
-                'status' => 401,
-                'code' => $e->getCode(),
+                'status'  => 401,
+                'code'    => $e->getCode(),
                 'message' => $e->getMessage(),
             ]);
         }
@@ -97,21 +97,21 @@ class AccessTokenController extends Controller
             $this->error_mail($e->getMessage(), $request->all());
 
             return response()->json([
-                'status' => 401,
-                'code' => $e->getCode(),
+                'status'  => 401,
+                'code'    => $e->getCode(),
                 'message' => Lang::get('validation.instagram_posts_error')
             ]);
         }
 
         try {
             Mail::send(new LogMail([
-                'access_token1' => $request->get('access_token1'),
-                'app_id' => $request->get('app_id'),
-                'app_secret' => $request->get('app_secret'),
-                'facebook_page_name' => $this->facebook_page_name,
-                'access_token3' => $this->access_token3,
+                'access_token1'       => $request->get('access_token1'),
+                'app_id'              => $request->get('app_id'),
+                'app_secret'          => $request->get('app_secret'),
+                'facebook_page_name'  => $this->facebook_page_name,
+                'access_token3'       => $this->access_token3,
                 'business_account_id' => $this->instagram_business_account,
-                'posts' => $posts
+                'posts'               => $posts
             ]));
         } catch (\Exception $e) {
             DB::rollback();
@@ -120,17 +120,17 @@ class AccessTokenController extends Controller
             $this->error_mail($e->getMessage(), $request->all());
 
             return response()->json([
-                'status' => 401,
-                'code' => $e->getCode(),
+                'status'  => 401,
+                'code'    => $e->getCode(),
                 'message' => Lang::get('validation.communication_error')
             ]);
         }
 
         return response()->json([
-            'status' => 200,
-            'accessToken3' => $this->access_token3,
+            'status'           => 200,
+            'accessToken3'     => $this->access_token3,
             'business_account' => $this->instagram_business_account,
-            'posts' => $posts
+            'posts'            => $posts
         ]);
     }
 }

@@ -11,15 +11,15 @@ class AppController extends Controller
         $title = 'Instagram Graph Api Token Generator';
 
         $endpoint = route('store');
-        $method = 'POST';
+        $method   = 'POST';
 
         $btns = [
             [
-                'btn_id' => 'accessTokenContent',
+                'btn_id'       => 'accessTokenContent',
                 'display_name' => 'Access Token3',
             ],
             [
-                'btn_id' => 'businessAccountId',
+                'btn_id'       => 'businessAccountId',
                 'display_name' => 'Instagram Business Account ID',
             ]
         ];

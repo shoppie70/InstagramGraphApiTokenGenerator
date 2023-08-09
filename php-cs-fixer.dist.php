@@ -13,15 +13,15 @@ $config = new PhpCsFixer\Config();
 return $config
     ->setRiskyAllowed(true)
     ->setRules([
-        '@Symfony' => true,
-        '@PhpCsFixer:risky' => true,
-        '@PHP80Migration' => true,
-        '@PHP80Migration:risky' => true,
-        '@PSR12' => true,
+        '@Symfony'                  => true,
+        '@PhpCsFixer:risky'         => true,
+        '@PHP80Migration'           => true,
+        '@PHP80Migration:risky'     => true,
+        '@PSR12'                    => true,
         '@PHPUnit84Migration:risky' => true,
 
         // Alias
-        'ereg_to_preg' => true,
+        'ereg_to_preg'     => true,
         'mb_str_functions' => true,
 
         // Array Notation
@@ -36,7 +36,7 @@ return $config
         'class_attributes_separation' => [
             'elements' => ['method' => 'one']
         ],
-        'self_static_accessor' => true,
+        'self_static_accessor'            => true,
         'no_null_property_initialization' => true,
 
         // Class Usage
@@ -48,25 +48,25 @@ return $config
 
         // Control Structure
         'no_superfluous_elseif' => true,
-        'no_useless_else' => true,
-        'yoda_style' => false,
+        'no_useless_else'       => true,
+        'yoda_style'            => false,
 
         // Doctrine Annotation
 
         // Function Notation
-        'static_lambda' => true,
-        'single_line_throw' => false,
+        'static_lambda'       => true,
+        'single_line_throw'   => false,
         'use_arrow_functions' => false,
 
         // import
         'global_namespace_import' => [
-            'import_classes' => true,
+            'import_classes'   => true,
             'import_constants' => true,
             'import_functions' => true,
         ],
         'ordered_imports' => [
             'sort_algorithm' => 'alpha',
-            'imports_order' => [
+            'imports_order'  => [
                 'class',
                 'function',
                 'const'
@@ -90,7 +90,7 @@ return $config
         // PHP Tag
 
         // PHPUnit
-        'php_unit_strict' => false,
+        'php_unit_strict'        => false,
         'php_unit_method_casing' => [
             'case' => 'snake_case'
         ],
@@ -103,19 +103,19 @@ return $config
 
 
         // PHPDoc
-        'align_multiline_comment' => true,
+        'align_multiline_comment'   => true,
         'general_phpdoc_tag_rename' => [
             'replacements' => [
                 'inheritDocs' => 'inheritDoc',
             ]
         ],
         'no_superfluous_phpdoc_tags' => [
-            'allow_mixed' => true,
+            'allow_mixed'         => true,
             'allow_unused_params' => true,
         ],
-        'phpdoc_no_empty_return' => true,
-        'phpdoc_order' => true,
-        'phpdoc_order_by_value' => true,
+        'phpdoc_no_empty_return'              => true,
+        'phpdoc_order'                        => true,
+        'phpdoc_order_by_value'               => true,
         'phpdoc_var_annotation_correct_order' => true,
 
         // Return Notation
@@ -131,13 +131,13 @@ return $config
         'declare_strict_types' => false,
 
         // String Notation
-        'escape_implicit_backslashes' => true,
-        'explicit_string_variable' => true,
-        'heredoc_to_nowdoc' => true,
+        'escape_implicit_backslashes'       => true,
+        'explicit_string_variable'          => true,
+        'heredoc_to_nowdoc'                 => true,
         'simple_to_complex_string_variable' => true,
 
         // Whitespace
-        'array_indentation' => true,
+        'array_indentation'           => true,
         'method_chaining_indentation' => true,
     ])
     ->setFinder($finder);

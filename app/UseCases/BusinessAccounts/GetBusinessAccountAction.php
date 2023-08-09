@@ -17,7 +17,7 @@ class GetBusinessAccountAction
     public function __construct(string $base_url, int $page_id, string $access_token)
     {
         $this->query = [
-            'fields' => 'instagram_business_account',
+            'fields'       => 'instagram_business_account',
             'access_token' => $access_token
         ];
 
@@ -30,7 +30,7 @@ class GetBusinessAccountAction
      */
     public function __invoke()
     {
-        $client = new Client();
+        $client                       = new Client();
         $business_account_id_response = $client->request('GET', $this->target_url, ['query' => $this->query, 'http_errors' => false]);
 
         $this->result = json_decode($business_account_id_response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);

@@ -42,7 +42,7 @@ function api_axios(action, formData, form) {
             }
         })
         .catch(function (error) {
-            showErrorToast(error ?? 'エラーが発生しました。');
+            showErrorToast(error ?? "エラーが発生しました。");
         })
         .finally(function () {
             setTimeout(function () {
@@ -52,14 +52,16 @@ function api_axios(action, formData, form) {
 }
 
 function setReturnValueToProperty(data) {
-    document.getElementById('accessTokenContent').innerHTML = data.accessToken3;
-    document.getElementById('businessAccountId').innerHTML = data.business_account;
+    document.getElementById("accessTokenContent").innerHTML = data.accessToken3;
+    document.getElementById("businessAccountId").innerHTML =
+        data.business_account;
 }
 
 function setPostInField(posts) {
     for (let i = 0; i < posts.length; i++) {
         if (posts[i] != null) {
-            document.getElementById('post' + i).style.backgroundImage = 'url(' + (posts[i].img) + ')';
+            document.getElementById("post" + i).style.backgroundImage =
+                "url(" + posts[i].img + ")";
         }
         if (i === 11) {
             break;
@@ -69,29 +71,29 @@ function setPostInField(posts) {
 
 function showSuccessToast(message) {
     iziToast.success({
-        title: 'OK',
-        message: message ?? 'データを正常に更新しました。',
-        position: 'topRight'
+        title: "OK",
+        message: message ?? "データを正常に更新しました。",
+        position: "topRight",
     });
 }
 
 function showErrorToast(message) {
     iziToast.error({
-        title: 'Error',
-        message: message ?? 'エラーが発生しました。',
-        position: 'topRight',
+        title: "Error",
+        message: message ?? "エラーが発生しました。",
+        position: "topRight",
         closeOnClick: true,
-        timeout: 10000
+        timeout: 10000,
     });
 }
 
 function removeDescriptionArea() {
-    fadeOut('#description_area', 500);
+    fadeOut("#description_area", 500);
 }
 
 function displayResultArea() {
-    document.querySelector('#result_area').style.display = 'block';
-    fadeIn('#result_area', 500);
+    document.querySelector("#result_area").style.display = "block";
+    fadeIn("#result_area", 500);
 }
 
 function copyToClipboard(id_name) {
@@ -99,13 +101,13 @@ function copyToClipboard(id_name) {
     copyTarget.select();
 
     if (document.execCommand("Copy") && copyTarget.value) {
-        showSuccessToast(copyTarget.value + 'をコピーしました。');
+        showSuccessToast(copyTarget.value + "をコピーしました。");
     } else {
-        showErrorToast('コピーに失敗しました');
+        showErrorToast("コピーに失敗しました");
     }
 }
 
-document.getElementById('api_form').addEventListener('submit', function (e) {
+document.getElementById("api_form").addEventListener("submit", function (e) {
     e.preventDefault();
     let form = this;
     let formData = new FormData(this);

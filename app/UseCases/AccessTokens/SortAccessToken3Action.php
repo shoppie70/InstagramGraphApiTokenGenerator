@@ -16,7 +16,7 @@ class SortAccessToken3Action
             foreach ($array as $data) {
                 if (isset($data['name']) && $data['name'] === $page_name) {
                     $this->access_token3_array = [
-                        'access_token' => $data['access_token'] ?? null,
+                        'access_token'      => $data['access_token'] ?? null,
                         'instagram_page_id' => $data['id'] ?? null
                     ];
                 }
