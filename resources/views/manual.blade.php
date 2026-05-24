@@ -1,5 +1,38 @@
 @extends('layout.master')
 
+@section('json_ld')
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "HowTo",
+        "name": "{{ Lang::get('common.manual_title') }}",
+        "description": "{{ strip_tags(Lang::get('manual.description')) }}",
+        "step": [
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step1_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step1_desc')) }}"
+            },
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step2_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step2_desc')) }}"
+            },
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step3_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step3_desc')) }}"
+            },
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step4_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step4_desc')) }}"
+            }
+        ]
+    }
+    </script>
+@endsection
+
 @section('scripts')
     <script>
         const domain = 'https://graph.facebook.com/';
@@ -84,28 +117,25 @@
             {{ $title }}
         </h1>
         <p class="text-center mb-4 ">
-            Paste the data yourself and press the submit button. <br>
-            Then you can see <strong>the response of Instagram Graph API</strong>, so you can handle detailed errors.<br>
-            It is recommended to install  <span class="label">Firefox Developer Edition</span> or Chrome extension <span class="label">JsonVue</span> for easier viewing of JSON.
+            {!! Lang::get('manual.description') !!}
         </p>
 
-        <a href="{{ route('index') }}" class="text-sm absolute inline-block top-0 right-0 py-2 px-8 bg-blue-300 text-white font-bold">
-            For Auto Acquisition Tool
+        <a href="{{ route('index.' . app()->getLocale()) }}" class="text-sm absolute inline-block top-0 right-0 py-2 px-8 bg-blue-300 text-white font-bold">
+            {{ Lang::get('manual.back_to_auto') }}
         </a>
         <div class="flex h-full">
             <section class="w-1/4 p-6 border-r lg:p-2 m-auto my-0 w-full bg-white md:p-0">
                 <div class="px-2 py-8 rounded-xl">
                     <h2 class="text-2xl font-medium text-center mb-8">
-                        1. Get Access Token 2
+                        {{ Lang::get('manual.step1_title') }}
                     </h2>
                     <p class="mb-2">
-                        Please fill out the form below based on the information obtained from
-                        <a class="underline" href="https://developers.facebook.com." target="_blank" rel="noopener">https://developers.facebook.com.</a>
+                        {!! Lang::get('manual.step1_desc') !!}
                     </p>
                     <form id="access_token2_form" action="">
                         <div class="my-5 text-sm">
                             <label for="access_token1" class="block text-black">
-                                Access Token 1
+                                {{ Lang::get('manual.step1_label_token1') }}
                             </label>
                             <input name="access_token1" type="text" autofocus="" id="access_token1" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
@@ -113,7 +143,7 @@
                         </div>
                         <div class="my-5 text-sm">
                             <label for="app_id" class="block text-black">
-                                App ID
+                                {{ Lang::get('manual.step1_label_app_id') }}
                             </label>
                             <input name="app_id" type="text" id="app_id" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
@@ -121,15 +151,14 @@
                         </div>
                         <div class="my-5 text-sm">
                             <label for="app_secret" class="block text-black">
-                                App Secret
+                                {{ Lang::get('manual.step1_label_app_secret') }}
                             </label>
                             <input name="app_secret" type="text" id="app_secret" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
                                    placeholder="App Secret here" required="">
                         </div>
                         <p class="mb-4">
-                            Copy “access_token”: “~~~~” and this is <span
-                                class="label">Access Token 2</span>.
+                            {!! Lang::get('manual.step1_copy_hint') !!}
                         </p>
                         <div class="overflow-x-scroll text-xs">
 <pre class="bg-gray-100 p-2">
@@ -141,7 +170,7 @@
                         <button type="submit"
                                 id="token2_submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
-                            Jump Response Page!
+                            {{ Lang::get('manual.step1_btn') }}
                         </button>
                     </form>
                 </div>
@@ -149,16 +178,15 @@
             <section class="w-1/4 p-6 border-r lg:p-2 m-auto my-0 w-full bg-white md:p-0">
                 <div class="px-2 pt-8 pb-4 rounded-xl">
                     <h2 class="text-2xl font-medium text-center mb-8">
-                        2. Get Instagram Management ID
+                        {{ Lang::get('manual.step2_title') }}
                     </h2>
                     <p class="leading-8">
-                        Obtain <span class="label">Instagram Management ID</span> by using <span
-                            class="label">Access Token 2</span>.
+                        {!! Lang::get('manual.step2_desc') !!}
                     </p>
                     <form id="page_id_form" action="">
                         <div class="mt-5 mb-8 text-sm">
                             <label for="access_token2" class="block text-black">
-                                Access Token 2
+                                {{ Lang::get('manual.step2_label_token2') }}
                             </label>
                             <input name="access_token2" type="text" autofocus="" id="access_token2" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
@@ -174,7 +202,7 @@
                         </div>
                         <button type="submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
-                            Jump Response Page!
+                            {{ Lang::get('manual.step2_btn') }}
                         </button>
                     </form>
                 </div>
@@ -182,18 +210,15 @@
             <section class="w-1/4 p-6 border-r lg:p-2 m-auto my-0 w-full bg-white md:p-0">
                 <div class="px-2 py-8 rounded-xl">
                     <h2 class="text-2xl font-medium text-center mb-8">
-                        3. Get Access Token 3
+                        {{ Lang::get('manual.step3_title') }}
                     </h2>
                     <p class="leading-8">
-                        Get <span class="label">Access Token 3</span> and <span
-                            class="label">Instagram Page ID</span> by using <span
-                            class="label">Access Token 2</span> and <span
-                            class="label">Instagram Management ID</span>.
+                        {!! Lang::get('manual.step3_desc') !!}
                     </p>
                     <form id="access_token_3_form" action="">
                         <div class="my-5 text-sm">
                             <label for="access_token2_same" class="block text-black">
-                                Access Token 2
+                                {{ Lang::get('manual.step3_label_token2') }}
                             </label>
                             <input name="access_token2_same" type="text" autofocus="" id="access_token2_same" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
@@ -201,7 +226,7 @@
                         </div>
                         <div class="my-5 text-sm">
                             <label for="instagram_management_id" class="block text-black">
-                                Instagram Management ID
+                                {{ Lang::get('manual.step3_label_mgmt_id') }}
                             </label>
                             <input name="instagram_management_id" type="text" autofocus="" id="instagram_management_id"
                                    value=""
@@ -209,9 +234,7 @@
                                    placeholder="token here" required="">
                         </div>
                         <p class="mb-4">
-                            Copy <span class="label">Access Token 3</span> and <span
-                                class="label">Instagram Page ID</span>.<br>
-                            Below, this is response sample.
+                            {!! Lang::get('manual.step3_copy_hint') !!}
                         </p>
                         <div class="overflow-scroll text-xs">
 <pre class="bg-gray-100 p-2">
@@ -230,7 +253,7 @@
                         </div>
                         <button type="submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
-                            Jump Response Page!
+                            {{ Lang::get('manual.step3_btn') }}
                         </button>
                     </form>
                 </div>
@@ -238,12 +261,12 @@
             <section class="w-1/4 p-6 lg:p-2 m-auto my-0 w-full bg-white md:p-0">
                 <div class="px-2 py-8 rounded-xl">
                     <h2 class="text-2xl font-medium text-center">
-                        4. Get Instagram Business Account ID
+                        {{ Lang::get('manual.step4_title') }}
                     </h2>
                     <form id="business_id_form" action="">
                         <div class="my-5 text-sm">
                             <label for="access_token3" class="block text-black">
-                                Access Token 3
+                                {{ Lang::get('manual.step4_label_token3') }}
                             </label>
                             <input name="access_token3" type="text" autofocus="" id="access_token3" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
@@ -251,14 +274,14 @@
                         </div>
                         <div class="my-5 text-sm">
                             <label for="instagram_page_id_same" class="block text-black">
-                                Instagram Page ID
+                                {{ Lang::get('manual.step4_label_page_id') }}
                             </label>
                             <input name="instagram_page_id" type="text" autofocus="" id="instagram_page_id" value=""
                                    class="px-4 py-3 mt-3 w-full bg-gray-100 rounded-sm focus:outline-none"
                                    placeholder="token here" required="">
                         </div>
                         <p class="leading-8 mb-4">
-                            Copy “instagram_business_account”: “~~~~” and this is <span class="label">Instagram Business Account ID</span>.
+                            {!! Lang::get('manual.step4_copy_hint') !!}
                         </p>
                         <div class="overflow-x-scroll text-xs mb-4">
 <pre class="bg-gray-100 p-2">
@@ -270,12 +293,11 @@
 }</code></pre>
                         </div>
                         <p class="leading-8">
-                            You can use <span class="label">Access Token 3</span> and <span class="label">Instagram Business Account ID</span>
-                            to embed Instagram posts on your home page.
+                            {!! Lang::get('manual.step4_desc') !!}
                         </p>
                         <button type="submit"
                                 class="mt-6 w-full block p-3 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
-                            Jump Response Page!
+                            {{ Lang::get('manual.step4_btn') }}
                         </button>
                     </form>
                 </div>
@@ -286,5 +308,14 @@
                 Made with <span class="text-base" style="color: #e25555;">&hearts;</span> by Sho Tsukamoto
             </small>
         </div>
+
+        @php
+            $currentRoute = Route::currentRouteName();
+            $isJa = str_ends_with($currentRoute, '.ja');
+            $targetRoute = $isJa ? str_replace('.ja', '.en', $currentRoute) : str_replace('.en', '.ja', $currentRoute);
+        @endphp
+        <a href="{{ route($targetRoute) }}" class="text-sm absolute inline-block bottom-0 right-0 py-2 px-8 bg-blue-300 text-white font-bold">
+            {{ $isJa ? 'Switch to English' : '日本語に切り替える' }}
+        </a>
     </div>
 @endsection
