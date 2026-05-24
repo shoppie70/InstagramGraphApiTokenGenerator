@@ -4,7 +4,6 @@
 /public/storage
 /storage/*.key
 /vendor
-/vendor-bin
 .env
 .env.backup
 .env.production
@@ -19,3 +18,6 @@ yarn-error.log
 /.vscode
 /.php-cs-fixer.cache
 /deploy.sh
+.DS_Store
+vendor-bin/**/vendor/
+vendor-bin/**/.composer-bin/
