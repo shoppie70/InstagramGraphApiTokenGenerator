@@ -8,19 +8,19 @@ class AppController extends Controller
 {
     public function index()
     {
-        $title = 'Instagram Graph Api Token Generator';
+        $title = Lang::get('common.title');
 
-        $endpoint = route('store');
+        $endpoint = route('store.' . app()->getLocale());
         $method   = 'POST';
 
         $btns = [
             [
                 'btn_id'       => 'accessTokenContent',
-                'display_name' => 'Access Token3',
+                'display_name' => Lang::get('common.access_token3'),
             ],
             [
                 'btn_id'       => 'businessAccountId',
-                'display_name' => 'Instagram Business Account ID',
+                'display_name' => Lang::get('common.instagram_business_account_id'),
             ]
         ];
 
@@ -45,7 +45,7 @@ class AppController extends Controller
 
     public function manual(): string
     {
-        $title = 'Manual Acquisition Help tool';
+        $title = Lang::get('common.manual_title');
 
         return view('manual', compact(
             'title',

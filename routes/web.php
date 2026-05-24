@@ -18,14 +18,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware'=>'set.locale'], static function () {
-    Route::get('/', [AppController::class, 'index'])->name('index');
-    Route::get('/manual', [AppController::class, 'manual'])->name('manual');
-    Route::post('/store', [AccessTokenController::class, 'store'])->name('store');
+    // Japanese
+    Route::group(['prefix' => 'ja'], static function () {
+        Route::get('/', [AppController::class, 'index'])->name('index.ja');
+        Route::get('/manual', [AppController::class, 'manual'])->name('manual.ja');
+        Route::post('/store', [AccessTokenController::class, 'store'])->name('store.ja');
+    });
 
-
-    Route::get('/set-locale/{locale}', static function ($locale) {
-        session()->put('locale', $locale);
-
-        return redirect()->back();
-    })->name('locale');
+    // English (Default)
+    Route::get('/', [AppController::class, 'index'])->name('index.en');
+    Route::get('/manual', [AppController::class, 'manual'])->name('manual.en');
+    Route::post('/store', [AccessTokenController::class, 'store'])->name('store.en');
 });

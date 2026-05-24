@@ -4,9 +4,43 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="{{ App::isLocale('en') ? 'This is a tool to automatically get Instagram Graph API access token 3 and Instagram Business Account ID just by entering App ID, App Secret, access token 1, and Facebook Page name. You can use it to embed Instagram posts into your website.' : 'Instagram Graph APIを用いてインスタグラムの投稿をWebページに埋め込む際に必要となるアクセストークン3とビジネスアカウントIDを自動取得するツールです。App ID、App secret、アクセストークン1、Facebookページ名を入力するだけで自動取得が可能です。' }}">
+    <meta name="description" content="{{ Lang::get('description.meta_description') }}">
     <title>{{ $title }}</title>
+
+    <link rel="canonical" href="{{ request()->url() }}">
+
+    @php
+        $currentRoute = Route::currentRouteName();
+        if ($currentRoute) {
+            $isJa = str_ends_with($currentRoute, '.ja');
+            $enRoute = $isJa ? str_replace('.ja', '.en', $currentRoute) : $currentRoute;
+            $jaRoute = $isJa ? $currentRoute : str_replace('.en', '.ja', $currentRoute);
+            $routeParams = request()->route() ? request()->route()->parameters() : [];
+            $enUrl = route($enRoute, $routeParams);
+            $jaUrl = route($jaRoute, $routeParams);
+        } else {
+            $enUrl = url('/');
+            $jaUrl = url('/ja');
+        }
+    @endphp
+    <link rel="alternate" hreflang="en" href="{{ $enUrl }}" />
+    <link rel="alternate" hreflang="ja" href="{{ $jaUrl }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ $enUrl }}" />
+
+    <!-- OGP Tags -->
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ Lang::get('description.meta_description') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta property="og:image" content="{{ asset('/assets/img/instagram.png') }}">
+    <meta property="og:site_name" content="{{ Lang::get('common.title') }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ Lang::get('description.meta_description') }}">
+    <meta name="twitter:image" content="{{ asset('/assets/img/instagram.png') }}">
+
     @yield('styles')
     @include('partials.styles')
 

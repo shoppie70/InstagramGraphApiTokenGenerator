@@ -8,8 +8,13 @@
         @include('components.top_page.description_area')
         @include('components.top_page.result_area')
 
-        <a href="{{ route('locale', ['locale' => App::isLocale('en') ? 'ja' : 'en' ]) }}" class="text-sm absolute inline-block bottom-0 right-0 py-2 px-8 bg-blue-300 text-white font-bold">
-            {{ App::isLocale('en') ? '日本語に切り替える' : 'Switch to English' }}
+        @php
+            $currentRoute = Route::currentRouteName();
+            $isJa = str_ends_with($currentRoute, '.ja');
+            $targetRoute = $isJa ? str_replace('.ja', '.en', $currentRoute) : str_replace('.en', '.ja', $currentRoute);
+        @endphp
+        <a href="{{ route($targetRoute) }}" class="text-sm absolute inline-block bottom-0 right-0 py-2 px-8 bg-blue-300 text-white font-bold">
+            {{ $isJa ? 'Switch to English' : '日本語に切り替える' }}
         </a>
 
     </div>
