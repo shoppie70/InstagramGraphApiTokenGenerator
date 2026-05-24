@@ -11,17 +11,12 @@
 
     @php
         $currentRoute = Route::currentRouteName();
-        if ($currentRoute) {
-            $isJa = str_ends_with($currentRoute, '.ja');
-            $enRoute = $isJa ? str_replace('.ja', '.en', $currentRoute) : $currentRoute;
-            $jaRoute = $isJa ? $currentRoute : str_replace('.en', '.ja', $currentRoute);
-            $routeParams = request()->route() ? request()->route()->parameters() : [];
-            $enUrl = route($enRoute, $routeParams);
-            $jaUrl = route($jaRoute, $routeParams);
-        } else {
-            $enUrl = url('/');
-            $jaUrl = url('/ja');
-        }
+        $isJa = $currentRoute ? str_ends_with($currentRoute, '.ja') : false;
+        $enRoute = $currentRoute ? ($isJa ? str_replace('.ja', '.en', $currentRoute) : $currentRoute) : null;
+        $jaRoute = $currentRoute ? ($isJa ? $currentRoute : str_replace('.en', '.ja', $currentRoute)) : null;
+        $routeParams = request()->route() ? request()->route()->parameters() : [];
+        $enUrl = $enRoute ? route($enRoute, $routeParams) : url('/');
+        $jaUrl = $jaRoute ? route($jaRoute, $routeParams) : url('/ja');
     @endphp
     <link rel="alternate" hreflang="en" href="{{ $enUrl }}" />
     <link rel="alternate" hreflang="ja" href="{{ $jaUrl }}" />
@@ -40,6 +35,8 @@
     <meta name="twitter:title" content="{{ $title }}">
     <meta name="twitter:description" content="{{ Lang::get('description.meta_description') }}">
     <meta name="twitter:image" content="{{ asset('/assets/img/instagram.png') }}">
+
+    @yield('json_ld')
 
     @yield('styles')
     @include('partials.styles')

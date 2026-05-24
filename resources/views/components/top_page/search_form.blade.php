@@ -1,11 +1,11 @@
 <section class="input_zone p-6 lg:p-2 m-auto my-0 w-full lg:h-full bg-white shadow-md md:p-0">
     <div class="px-2 py-8 rounded-xl">
-        <h3 class="mt-3 mb-2 text-2xl font-medium text-center">
+        <h2 class="mt-3 mb-2 text-2xl font-medium text-center">
             {{ Lang::get('common.form_title') }}
-        </h3>
-        <h4 class="mb-16 text-base font-medium text-center">
+        </h2>
+        <p class="mb-16 text-base font-medium text-center text-gray-500">
             {{ $title }}
-        </h4>
+        </p>
         <form action="{{ $endpoint }}" id="api_form" method="POST">
             @csrf
             @method($method)

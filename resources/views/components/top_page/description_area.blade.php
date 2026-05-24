@@ -7,23 +7,23 @@
     <main>
 
         <section>
-            <h3 class="pl-2 font-bold text-2xl mb-4 border-b pb-2">
+            <h2 class="pl-2 font-bold text-2xl mb-4 border-b pb-2">
                 {{ Lang::get('description.about_title') }}
-            </h3>
+            </h2>
             <p class="mb-4 leading-relaxed pl-4">
                 {!! Lang::get('description.about') !!}
             </p>
         </section>
         <section class="mb-8">
-            <h3 class="pl-2 font-bold text-2xl mb-4 border-b pb-2">
+            <h2 class="pl-2 font-bold text-2xl mb-4 border-b pb-2">
                 {{ Lang::get('description.usage_title') }}
-            </h3>
+            </h2>
             <p class="mb-4 leading-relaxed pl-4">
                 {!! Lang::get('description.usage') !!}
             </p>
-            <h4 class="pl-4 font-bold text-xl pb-2">
+            <h3 class="pl-4 font-bold text-xl pb-2">
                 {{ Lang::get('description.flow_title') }}
-            </h4>
+            </h3>
             <ol class="pl-4">
                 @foreach($usage_items as $usage_item)
                     <li class="mb-2">
@@ -36,9 +36,9 @@
             </p>
         </section>
         <section>
-            <h3 class="pl-2 font-bold text-2xl mb-4 border-b pb-2">
+            <h2 class="pl-2 font-bold text-2xl mb-4 border-b pb-2">
                 {{ Lang::get('description.not_working_title') }}
-            </h3>
+            </h2>
             <a href="{{ route('manual.' . app()->getLocale()) }}" class="inline-block ml-4 mb-4 py-3 px-6 text-center text-white bg-indigo-800 rounded-sm duration-300 hover:bg-black">
                 {{ Lang::get('description.access_manual_tool') }}
             </a>

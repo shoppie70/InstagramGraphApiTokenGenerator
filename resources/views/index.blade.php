@@ -1,5 +1,20 @@
 @extends('layout.master')
 
+@section('json_ld')
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "WebApplication",
+        "name": "{{ Lang::get('common.title') }}",
+        "description": "{{ Lang::get('description.meta_description') }}",
+        "url": "{{ request()->url() }}",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5."
+    }
+    </script>
+@endsection
+
 @section('main')
     @include('partials.loading')
     <div class="flex flex-wrap lg:flex-nowrap h-screen bg-gray-100 dark:bg-gray-900">

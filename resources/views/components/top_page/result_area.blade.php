@@ -11,9 +11,9 @@
     <div class="">
         @foreach( $btns as $btn )
             <section>
-                <h2 class="font-bold mb-3 text-md">
+                <h3 class="font-bold mb-3 text-md">
                     {{ $btn['display_name'] }}
-                </h2>
+                </h3>
                 <textarea id="{{ $btn['btn_id'] }}"
                           class="px-3 py-2 w-full text-gray-700 rounded-lg border text focus:outline-none"
                           placeholder=""

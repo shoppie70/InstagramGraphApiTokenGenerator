@@ -1,5 +1,38 @@
 @extends('layout.master')
 
+@section('json_ld')
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "HowTo",
+        "name": "{{ Lang::get('common.manual_title') }}",
+        "description": "{{ strip_tags(Lang::get('manual.description')) }}",
+        "step": [
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step1_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step1_desc')) }}"
+            },
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step2_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step2_desc')) }}"
+            },
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step3_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step3_desc')) }}"
+            },
+            {
+                "@@type": "HowToStep",
+                "name": "{{ Lang::get('manual.step4_title') }}",
+                "text": "{{ strip_tags(Lang::get('manual.step4_desc')) }}"
+            }
+        ]
+    }
+    </script>
+@endsection
+
 @section('scripts')
     <script>
         const domain = 'https://graph.facebook.com/';
