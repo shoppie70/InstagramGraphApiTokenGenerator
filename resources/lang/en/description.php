@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'meta_description' => 'This is a tool to automatically get Instagram Graph API access token 3 and Instagram Business Account ID just by entering App ID, App Secret, access token 1, and Facebook Page name. You can use it to embed Instagram posts into your website.',
+    'about_title' => 'About',
     'about' => 'This is a tool that can automatically acquire each data for embedding Instagram posts on a website.<br>
                 It can get Instagram Graph API <span class="font-bold">access token 3</span> and <span
                     class="font-bold">Instagram Business
@@ -18,9 +20,13 @@ return [
                     target="_blank"
                     rel="noopener"
                     class="text-blue-600"><span class="label">GitHub</span></a>.',
+    'usage_title' => 'Usage',
     'usage' => 'Basically, all you need to do is to enter these four things: <span class="label">Access Token1</span>, <span class="label">app secret</span>, <span class="label">App id</span>, and
                 <span class="label">Facebook Page Name</span>.',
+    'flow_title' => 'Flow',
+    'flow_message' => 'Mainly the second is often not executed ;-(',
+    'not_working_title' => 'Not working?',
+    'access_manual_tool' => '>> Access Manual Acquisition Tool',
     'not_working' => 'No problem! Prepared a manual acquisition tool.<br>
                 Paste the data yourself and press the submit button, then you can see the response of Instagram Graph API, so you can handle detailed errors.',
-    'flow_message' => 'Mainly the second is often not executed ;-('
 ];

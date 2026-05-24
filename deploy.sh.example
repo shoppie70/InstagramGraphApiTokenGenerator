@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# --- 設定エリア ---
+FTP_HOST="[FTPホスト名を入力]"
+FTP_USER="[FTPユーザー名を入力]"
+FTP_PASS="[FTPパスワードを入力]"
+
+# サーバー上のLaravelプロジェクトのルートパス
+# 例: /home/user/public_html/instagram.sho-tsukamoto.jp
+REMOTE_ROOT_DIR="[サーバー上のルートディレクトリパスを入力]"
+
+# --- 設定終了 ---
+
+echo "🚀 デプロイを開始します..."
+echo "🔄 Syncing files via FTP..."
+
+lftp -u "$FTP_USER","$FTP_PASS" $FTP_HOST <<EOF
+set ssl:verify-certificate no
+set ftp:ssl-allow no
+set net:connection-limit 10
+
+# ---------------------------------------------------------
+# 1. Backend Logic (app, routes, config...)
+# ---------------------------------------------------------
+echo "📂 [1/8] Syncing app (Controllers, Models)..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       "app" "$REMOTE_ROOT_DIR/app"
+
+echo "📂 [2/8] Syncing routes..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       "routes" "$REMOTE_ROOT_DIR/routes"
+
+echo "📂 [3/8] Syncing config..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       "config" "$REMOTE_ROOT_DIR/config"
+
+echo "📂 [4/8] Syncing resources (Views, Assets)..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       "resources" "$REMOTE_ROOT_DIR/resources"
+
+echo "📂 [5/8] Syncing database (Migrations)..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       "database" "$REMOTE_ROOT_DIR/database"
+
+echo "📂 [6/8] Syncing bootstrap (excluding cache)..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       --exclude cache/ \
+       "bootstrap" "$REMOTE_ROOT_DIR/bootstrap"
+
+echo "📂 [7/8] Syncing lang (Language files)..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       "lang" "$REMOTE_ROOT_DIR/lang"
+
+# ---------------------------------------------------------
+# 2. Public Root Files (index.php, .htaccess etc)
+# ---------------------------------------------------------
+echo "📂 [8/8] Syncing public folder..."
+mirror --reverse --verbose \
+       --exclude .DS_Store \
+       --exclude build/ \
+       --exclude storage/ \
+       "public" "$REMOTE_ROOT_DIR/public"
+
+# ---------------------------------------------------------
+# 3. Root Files
+# ---------------------------------------------------------
+echo "📄 Uploading root files..."
+put -O "$REMOTE_ROOT_DIR/" artisan
+put -O "$REMOTE_ROOT_DIR/" composer.json
+
+bye
+EOF
+
+echo "🎉 デプロイが完了しました！"

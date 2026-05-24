@@ -9,8 +9,10 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next)
     {
-        if (session()->has('locale')) {
-            app()->setLocale(session('locale'));
+        if ($request->is('ja') || $request->is('ja/*')) {
+            app()->setLocale('ja');
+        } else {
+            app()->setLocale('en');
         }
 
         return $next($request);
